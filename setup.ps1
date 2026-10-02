@@ -1,0 +1,81 @@
+<#
+.SYNOPSIS
+  One-Click Vibe Coding Stack Setup Script (Windows PowerShell)
+  Installs & Configures: Ponytail, Graphify, and Addy Osmani's Agent Skills.
+#>
+
+Write-Host "==========================================================" -ForegroundColor Cyan
+Write-Host "   🚀 Initializing Vibe Coding Supercharged Template      " -ForegroundColor Cyan
+Write-Host "      Stack: Ponytail + Graphify + Agent Skills           " -ForegroundColor Cyan
+Write-Host "==========================================================" -ForegroundColor Cyan
+Write-Host ""
+
+# 1. Check Python & Install Graphify
+Write-Host "1️⃣ Checking Python & Graphify..." -ForegroundColor Yellow
+$pythonCmd = Get-Command python -ErrorAction SilentlyContinue
+if ($pythonCmd) {
+    Write-Host "   Found Python: $($pythonCmd.Source)" -ForegroundColor Green
+    try {
+        Write-Host "   Installing/Updating graphifyy via pip..." -ForegroundColor Gray
+        python -m pip install --quiet --upgrade graphifyy
+        python -m graphify install
+        Write-Host "   ✅ Graphify installed successfully." -ForegroundColor Green
+    } catch {
+        Write-Host "   ⚠️ Could not automatically install graphifyy via pip. Run 'pip install graphifyy' manually." -ForegroundColor DarkYellow
+    }
+} else {
+    Write-Host "   ⚠️ Python not found on PATH. Install Python 3.10+ to enable Graphify." -ForegroundColor Red
+}
+
+# 2. Check Git & Install Graphify Post-Commit Hook
+Write-Host "`n2️⃣ Checking Git Repository..." -ForegroundColor Yellow
+if (Test-Path ".git") {
+    try {
+        graphify hook install
+        Write-Host "   ✅ Installed Graphify post-commit hook." -ForegroundColor Green
+    } catch {
+        Write-Host "   ℹ️ Note: Run 'graphify hook install' once graphify is on your PATH." -ForegroundColor Gray
+    }
+} else {
+    Write-Host "   ℹ️ Not a git repo yet. Run 'git init' and 'graphify hook install' when ready." -ForegroundColor Gray
+}
+
+# 3. Setup Agent Skills
+Write-Host "`n3️⃣ Installing Agent Skills (Addy Osmani)..." -ForegroundColor Yellow
+$npxCmd = Get-Command npx -ErrorAction SilentlyContinue
+if ($npxCmd) {
+    Write-Host "   Running: npx skills add addyosmani/agent-skills..." -ForegroundColor Gray
+    try {
+        npx skills add addyosmani/agent-skills
+        Write-Host "   ✅ Agent Skills installed into local agent environment." -ForegroundColor Green
+    } catch {
+        Write-Host "   ⚠️ Failed to run npx skills. You can run 'npx skills add addyosmani/agent-skills' manually." -ForegroundColor DarkYellow
+    }
+} else {
+    Write-Host "   ⚠️ Node.js / npx not found on PATH. Install Node.js 18+ to enable skills CLI." -ForegroundColor Red
+}
+
+# 4. Check for Antigravity CLI / Claude Code
+Write-Host "`n4️⃣ Checking Agent Environments..." -ForegroundColor Yellow
+$agyCmd = Get-Command agy -ErrorAction SilentlyContinue
+if ($agyCmd) {
+    Write-Host "   Found Antigravity CLI (agy)! Installing plugins..." -ForegroundColor Green
+    agy plugin install https://github.com/DietrichGebert/ponytail --silent
+    agy plugin install https://github.com/addyosmani/agent-skills.git --silent
+    Write-Host "   ✅ Antigravity CLI plugins installed." -ForegroundColor Green
+}
+
+Write-Host ""
+Write-Host "==========================================================" -ForegroundColor Green
+Write-Host "   🎉 Vibe Coding Stack Ready!                           " -ForegroundColor Green
+Write-Host "==========================================================" -ForegroundColor Green
+Write-Host "Pre-configured workflows in your new project:"
+Write-Host " • /graphify .        -> Build & inspect codebase knowledge graph"
+Write-Host " • /spec              -> Write PRD and clarify goals before coding"
+Write-Host " • /plan              -> Decompose spec into atomic, verifiable tasks"
+Write-Host " • /build auto        -> Autonomous vertical-slice TDD implementation"
+Write-Host " • /test              -> Verify with tests and browser DevTools"
+Write-Host " • /review            -> 5-axis Senior Staff quality review"
+Write-Host " • /ponytail-review   -> Strip code bloat, enforce native 1-liners"
+Write-Host " • /ship              -> Commit atomic changes and prepare release"
+Write-Host "==========================================================" -ForegroundColor Green
