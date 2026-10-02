@@ -118,6 +118,13 @@ Tune layout parameters to match the target aesthetic:
 - Safe Areas: Apply `padding-bottom: env(safe-area-inset-bottom)` on floating or fixed bottom bars.
 - Prevent Zoom: Form inputs must have minimum `font-size: 16px` to prevent iOS auto-zoom on focus.
 
+### Design Precedence & Conflict Resolution
+When styling, animating, or reviewing frontend components, enforce this priority hierarchy to eliminate tool conflicts:
+1. **Art Direction & Personality:** `design-taste-frontend` (Taste Skill) sets the primary visual direction, color palettes, and typographic scales. Adopt **one** aesthetic persona per project.
+2. **Motion, Physics & Mobile:** `animate` and `mobile-native` (Emil Kowalski) strictly govern all transitions, cubic-bezier curves (150–300ms), and touch ergonomics. Favor native CSS transitions and Framer Motion over external heavy animation libraries (no GSAP unless explicitly requested).
+3. **Quality & Contrast Gatekeeper:** `impeccable audit` runs 61 deterministic checks (WCAG contrast, no pure `#000000`, no card-nesting) prior to shipping without LLM token cost.
+4. **Accessibility & Semantics:** `frontend-ui-engineering` enforces semantic HTML tags, keyboard navigation, and ARIA attributes.
+
 ### Procedural 3D UI & Spatial Elements (img2threejs)
 - When 3D hero elements or product showcases are needed, reconstruct 2D references as pure TypeScript / Three.js code (`THREE.Group`).
 - Do not check in heavy `.glb`/`.obj` 3D binaries when procedural primitives and shaders suffice. Expose clean pivots, raycast colliders, and `userData.tick` hooks.
@@ -149,17 +156,16 @@ Invoke installed skills from `.agents/skills` / `agent/skills` based on the oper
 | | `doubt-driven-development` | Adversarial cross-examination of security-critical assumptions. |
 | **Performance & Ops** | `performance-optimization` | Profile and optimize Core Web Vitals, render loops, and network waterfalls. |
 | | `observability-and-instrumentation` | Add structured logging, traces, metrics, and failure diagnostics. |
-| **Design & Anti-Slop** | `impeccable` | Execute design audits, distill clutter, craft tokens, and polish UI. |
-| | `design-taste-frontend` | Anti-slop creative direction for pages and application shells. |
-| | `high-end-visual-design` | Agency-grade typography, subtle palette tints, and luxury styling. |
-| | `minimalist-ui` | Editorial layouts, clean typographic hierarchy, and warm monochromes. |
-| | `industrial-brutalist-ui` | High-contrast utilitarian grids, monospace data views, raw aesthetics. |
+| **Design & Anti-Slop** | `design-taste-frontend` | Primary anti-slop creative direction, bespoke palettes, and typographic scale. |
+| | `impeccable` | Run 61-rule deterministic audits (`/impeccable audit`), token extraction (`DESIGN.md`), and clutter reduction. |
+| | `high-end-visual-design` | *(Optional Persona)* Agency-grade typography, subtle palette tints, and luxury styling. |
+| | `minimalist-ui` | *(Optional Persona)* Editorial layouts, clean typographic hierarchy, and warm monochromes. |
+| | `industrial-brutalist-ui` | *(Optional Persona)* High-contrast utilitarian grids, monospace data views, raw aesthetics. |
 | | `brandkit` | Visual identity boards, font pairings, and asset token systems. |
-| **Motion & Interaction** | `animate` | Build fluid motion from scratch with appropriate curves and spring physics. |
-| | `emil-design-eng` | Micro-interactions, layout polish, and gesture-driven component transitions. |
-| | `review-animations` | Audit existing motion for linear easing, jank, and timing defects. |
+| **Motion & Interaction** | `animate` | Primary motion engine: fluid CSS/Framer motion with deceleration curves (`cubic-bezier(0.16, 1, 0.3, 1)`). |
+| | `mobile-native` | Mobile touch ergonomics, `100dvh` viewport fixes, safe-area insets, and 44px tap targets. |
+| | `review-animations` | Audit existing motion for linear easing, layout jank, and timing defects. |
 | | `apple-design` | Gesture-driven interfaces, WWDC fluid springs, and translucent depth. |
-| | `mobile-native` | Mobile touch polish, safe-area handling, and viewport sizing fixes. |
 | **Release & Lifecycle** | `shipping-and-launch` | Production readiness checklist, rollback validation, release gates. |
 | | `git-workflow-and-versioning` | Atomic git commits, semantic versioning, and changelog updates. |
 | | `deprecation-and-migration` | Safe phased migrations (expand/contract) and code deprecation. |

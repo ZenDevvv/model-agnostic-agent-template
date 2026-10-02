@@ -110,16 +110,16 @@ if ($npxCmd) {
     }
 
     try {
-        Write-Host "   Installing Taste Skill (Anti-Slop & Dials)..." -ForegroundColor Gray
-        npx --yes skills add https://github.com/Leonxlnx/taste-skill --all
+        Write-Host "   Installing Taste Skill (Anti-Slop Modern Frontend Engine)..." -ForegroundColor Gray
+        npx --yes skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend"
         Write-Host "   [+] Taste Skill installed." -ForegroundColor Green
     } catch {
         Write-Host "   [!] Taste Skill install skipped." -ForegroundColor DarkYellow
     }
 
     try {
-        Write-Host "   Installing Emil Kowalski's Design & Motion Skills..." -ForegroundColor Gray
-        npx --yes skills@latest add emilkowalski/skills --all
+        Write-Host "   Installing Emil Kowalski's Motion & Mobile Native Skills..." -ForegroundColor Gray
+        npx --yes skills@latest add emilkowalski/skills --skill "animate" --skill "mobile-native" --skill "review-animations"
         Write-Host "   [+] Emil Kowalski Skills installed." -ForegroundColor Green
     } catch {
         Write-Host "   [!] Emil Kowalski Skills install skipped." -ForegroundColor DarkYellow

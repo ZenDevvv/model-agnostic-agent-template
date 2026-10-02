@@ -55,11 +55,11 @@ if command -v npx &>/dev/null; then
     echo "   Installing Addy Osmani's Agent Skills..."
     npx --yes skills add addyosmani/agent-skills --all || true
 
-    echo "   Installing Taste Skill (Anti-Slop & Dials)..."
-    npx --yes skills add https://github.com/Leonxlnx/taste-skill --all || true
+    echo "   Installing Taste Skill (Anti-Slop Modern Frontend Engine)..."
+    npx --yes skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend" || true
 
-    echo "   Installing Emil Kowalski's Design & Motion Skills..."
-    npx --yes skills@latest add emilkowalski/skills --all || true
+    echo "   Installing Emil Kowalski's Motion & Mobile Native Skills..."
+    npx --yes skills@latest add emilkowalski/skills --skill "animate" --skill "mobile-native" --skill "review-animations" || true
 
     echo "   Installing Impeccable (Design Guidance & 61 Quality Rules)..."
     npx --yes impeccable install --yes --scope=project || true
