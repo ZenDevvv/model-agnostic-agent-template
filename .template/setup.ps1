@@ -8,7 +8,8 @@
 param(
     [switch]$KeepOrigin,
     [ValidateSet("motion", "frontend", "minimal", "custom")]
-    [string]$DesignProfile = "motion"
+    [string]$DesignProfile = "motion",
+    [switch]$DryRun
 )
 
 # Ensure script executes in the project root
@@ -45,6 +46,15 @@ if ($DesignProfile -eq "custom") {
     $installImpeccable = (Read-Host "Install Impeccable quality checks? [Y/n]") -notmatch "^(n|no)$"
     $installTaste = (Read-Host "Install Taste Skill visual direction? [y/N]") -match "^(y|yes)$"
     $installEmil = (Read-Host "Install Emil motion/mobile skills? [y/N]") -match "^(y|yes)$"
+}
+
+if ($DryRun) {
+    Write-Host "Dry run: no installation, Git, or commit actions will be performed." -ForegroundColor Yellow
+    Write-Host "Design profile: $DesignProfile"
+    Write-Host "  Impeccable: $installImpeccable"
+    Write-Host "  Taste Skill: $installTaste"
+    Write-Host "  Emil motion/mobile: $installEmil"
+    exit 0
 }
 # 1. Check Python & Install Graphify
 Write-Host "[1/5] Checking Python & Graphify..." -ForegroundColor Yellow
@@ -135,25 +145,37 @@ if ($npxCmd) {
     }
 
     try {
-        Write-Host "   Installing Taste Skill (Anti-Slop Modern Frontend Engine)..." -ForegroundColor Gray
-        if ($installTaste) { npx --yes skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend" }
-        Write-Host "   [+] Taste Skill installed." -ForegroundColor Green
+        if ($installTaste) {
+            Write-Host "   Installing Taste Skill (visual direction)..." -ForegroundColor Gray
+            npx --yes skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend"
+            Write-Host "   [+] Taste Skill installed." -ForegroundColor Green
+        } else {
+            Write-Host "   [i] Taste Skill skipped by profile." -ForegroundColor DarkGray
+        }
     } catch {
         Write-Host "   [!] Taste Skill install skipped." -ForegroundColor DarkYellow
     }
 
     try {
-        Write-Host "   Installing Emil Kowalski's Motion & Mobile Native Skills..." -ForegroundColor Gray
-        if ($installEmil) { npx --yes skills@latest add emilkowalski/skills --skill "animate" --skill "mobile-native" --skill "review-animations" }
-        Write-Host "   [+] Emil Kowalski Skills installed." -ForegroundColor Green
+        if ($installEmil) {
+            Write-Host "   Installing Emil Kowalski's Motion & Mobile Native Skills..." -ForegroundColor Gray
+            npx --yes skills@latest add emilkowalski/skills --skill "animate" --skill "mobile-native" --skill "review-animations"
+            Write-Host "   [+] Emil Kowalski Skills installed." -ForegroundColor Green
+        } else {
+            Write-Host "   [i] Emil motion/mobile skills skipped by profile." -ForegroundColor DarkGray
+        }
     } catch {
         Write-Host "   [!] Emil Kowalski Skills install skipped." -ForegroundColor DarkYellow
     }
 
     try {
-        Write-Host "   Installing Impeccable (Design Guidance & 61 Quality Rules)..." -ForegroundColor Gray
-        if ($installImpeccable) { npx --yes impeccable install --yes --scope=project }
-        Write-Host "   [+] Impeccable installed." -ForegroundColor Green
+        if ($installImpeccable) {
+            Write-Host "   Installing Impeccable (design guidance & quality rules)..." -ForegroundColor Gray
+            npx --yes impeccable install --yes --scope=project
+            Write-Host "   [+] Impeccable installed." -ForegroundColor Green
+        } else {
+            Write-Host "   [i] Impeccable skipped by profile." -ForegroundColor DarkGray
+        }
     } catch {
         Write-Host "   [!] Impeccable install skipped. You can run 'npx impeccable install' manually." -ForegroundColor DarkYellow
     }

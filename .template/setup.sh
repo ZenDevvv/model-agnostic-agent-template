@@ -5,11 +5,52 @@
 set -e
 
 DESIGN_PROFILE="motion"
+DRY_RUN=false
+if [[ "${1:-}" == "--design-profile" ]]; then
+    DESIGN_PROFILE="${2:-motion}"
+    shift 2
+elif [[ "${1:-}" == "--dry-run" ]]; then
+    DRY_RUN=true
+    shift
+fi
+if [[ "${1:-}" == "--dry-run" ]]; then DRY_RUN=true; fi
+
+if [[ -t 0 && -z "${CI:-}" && "$DRY_RUN" == false && "$DESIGN_PROFILE" == "motion" ]]; then
+    echo "Design profile (default: motion):"
+    echo "  [1] motion   - Taste + Emil motion/mobile + Impeccable (recommended)"
+    echo "  [2] frontend - Taste + Impeccable"
+    echo "  [3] minimal  - Impeccable only"
+    echo "  [4] custom   - Choose each design skill"
+    read -r -p "Choose 1-4, or press Enter for motion: " choice
+    case "$choice" in
+        2) DESIGN_PROFILE="frontend" ;;
+        3) DESIGN_PROFILE="minimal" ;;
+        4) DESIGN_PROFILE="custom" ;;
+    esac
+fi
+
 INSTALL_IMPECCABLE=true
 INSTALL_TASTE=false
 INSTALL_EMIL=false
-if [[ "$DESIGN_PROFILE" == "motion" || "$DESIGN_PROFILE" == "frontend" ]]; then INSTALL_TASTE=true; fi
-if [[ "${1:-}" == "--design-profile" ]]; then DESIGN_PROFILE="${2:-motion}"; fi
+[[ "$DESIGN_PROFILE" == "motion" || "$DESIGN_PROFILE" == "frontend" ]] && INSTALL_TASTE=true
+[[ "$DESIGN_PROFILE" == "motion" ]] && INSTALL_EMIL=true
+if [[ "$DESIGN_PROFILE" == "custom" && "$DRY_RUN" == false ]]; then
+    read -r -p "Install Impeccable quality checks? [Y/n] " answer
+    [[ "$answer" =~ ^(n|no)$ ]] && INSTALL_IMPECCABLE=false
+    read -r -p "Install Taste Skill visual direction? [y/N] " answer
+    [[ "$answer" =~ ^(y|yes)$ ]] && INSTALL_TASTE=true
+    read -r -p "Install Emil motion/mobile skills? [y/N] " answer
+    [[ "$answer" =~ ^(y|yes)$ ]] && INSTALL_EMIL=true
+fi
+
+if [[ "$DRY_RUN" == true ]]; then
+    echo "Dry run: no installation, Git, or commit actions will be performed."
+    echo "Design profile: $DESIGN_PROFILE"
+    echo "  Impeccable: $INSTALL_IMPECCABLE"
+    echo "  Taste Skill: $INSTALL_TASTE"
+    echo "  Emil motion/mobile: $INSTALL_EMIL"
+    exit 0
+fi
 # Ensure script executes in the project root
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 if [[ "$(basename "$SCRIPT_DIR")" == ".template" ]]; then

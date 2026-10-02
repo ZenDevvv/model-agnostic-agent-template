@@ -56,7 +56,10 @@ cd my-new-project
   bash .template/setup.sh
   ```
 
-By default, setup installs the Motion design profile: Impeccable, Taste Skill, and Emil Kowalski motion/mobile skills. Choose frontend, minimal, or custom interactively or pass DesignProfile on PowerShell or design-profile on Bash.
+By default, setup installs the Motion design profile: Impeccable, Taste Skill, and Emil Kowalski motion/mobile skills. Choose frontend, minimal, or custom interactively, or use `-DesignProfile` / `--design-profile`. Add `-DryRun` / `--dry-run` to preview the selected profile without changing the project.
+
+Setup then automatically:
+
 - Installs and verifies **Graphify** via Python `pip`.
 - Installs the post-commit git hook to keep the knowledge graph continuously up to date.
 - Installs Addy Osmani's **Agent Skills** into your local agent environment.
@@ -187,4 +190,3 @@ This template works out of the box with:
 * **Codex** (via `AGENTS.md`)
 * **Cline / Roo Code** (via `AGENTS.md` and OpenAI-compatible endpoints)
 * **GitHub Copilot / Windsurf / OpenCode / Aider** (via `AGENTS.md`)
-
