@@ -7,6 +7,8 @@ set -e
 DESIGN_PROFILE="motion"
 DRY_RUN=false
 KEEP_ORIGIN=false
+RESET_GIT=false
+COMMIT_INITIAL_SETUP=false
 while (($#)); do
     case "$1" in
         --design-profile)
@@ -16,6 +18,8 @@ while (($#)); do
             ;;
         --dry-run) DRY_RUN=true; shift ;;
         --keep-origin) KEEP_ORIGIN=true; shift ;;
+        --reset-git) RESET_GIT=true; shift ;;
+        --commit-initial-setup) COMMIT_INITIAL_SETUP=true; shift ;;
         *) echo "Unknown option: $1" >&2; exit 2 ;;
     esac
 done
@@ -24,6 +28,11 @@ case "$DESIGN_PROFILE" in
     motion|frontend|minimal|custom) ;;
     *) echo "Invalid design profile: $DESIGN_PROFILE" >&2; exit 2 ;;
 esac
+
+if [[ "$KEEP_ORIGIN" == true && "$RESET_GIT" == true ]]; then
+    echo "Choose either --keep-origin or --reset-git, not both." >&2
+    exit 2
+fi
 
 if [[ -t 0 && -z "${CI:-}" && "$DRY_RUN" == false && "$DESIGN_PROFILE" == "motion" ]]; then
     echo "Design profile (default: motion):"
@@ -89,16 +98,40 @@ else
     echo -e "\033[1;31m   ⚠️ python3 not found. Please install Python 3.10+.\033[0m"
 fi
 
-# 2. Check Git, Detach from Template, & Commit Hook
+# 2. Check Git, optionally detach from template, & commit hook
 echo -e "\n\033[1;33m2️⃣ Checking Git Repository...\033[0m"
 origin_url=$(git remote get-url origin 2>/dev/null || echo "")
 
-if [[ "$origin_url" == *"model-agnostic-agent-template"* && "$KEEP_ORIGIN" == false ]]; then
+if [[ "$origin_url" == *"model-agnostic-agent-template"* ]]; then
     echo -e "\033[1;33m   🔄 Detected clone of template repository ($origin_url).\033[0m"
-    echo -e "\033[1;36m   Disconnecting from template and initializing fresh Git repository for your project...\033[0m"
-    rm -rf .git
-    (git init -b main >/dev/null 2>&1 || git init >/dev/null 2>&1)
-    echo -e "\033[1;32m   ✅ Initialized fresh, detached Git repository (main).\033[0m"
+    RESET_TEMPLATE_GIT=false
+
+    if [[ "$KEEP_ORIGIN" == true ]]; then
+        echo "   Keeping the existing Git repository by request."
+    elif [[ "$RESET_GIT" == true ]]; then
+        RESET_TEMPLATE_GIT=true
+    elif [[ -t 0 && -z "${CI:-}" ]]; then
+        echo "   Choose Git setup:"
+        echo "     [1] Start fresh - delete Git history and the template remote (default)"
+        echo "     [2] Keep existing - preserve Git history and remotes"
+        read -r -p "Choose 1-2, or press Enter to start fresh: " git_choice
+        if [[ -z "$git_choice" || "$git_choice" == "1" ]]; then
+            RESET_TEMPLATE_GIT=true
+        elif [[ "$git_choice" == "2" ]]; then
+            echo "   Keeping the existing Git repository."
+        else
+            echo "   Unrecognized choice; keeping the existing Git repository." >&2
+        fi
+    else
+        echo "   Non-interactive setup keeps the existing Git repository. Use --reset-git to start fresh."
+    fi
+
+    if [[ "$RESET_TEMPLATE_GIT" == true ]]; then
+        echo -e "\033[1;36m   Disconnecting from template and initializing fresh Git repository for your project...\033[0m"
+        rm -rf .git
+        (git init -b main >/dev/null 2>&1 || git init >/dev/null 2>&1)
+        echo -e "\033[1;32m   ✅ Initialized fresh, detached Git repository (main).\033[0m"
+    fi
 elif [ ! -d ".git" ]; then
     echo -e "\033[1;36m   Initializing fresh Git repository for your project...\033[0m"
     (git init -b main >/dev/null 2>&1 || git init >/dev/null 2>&1)
@@ -168,14 +201,20 @@ if [[ "$AGY_AVAILABLE" == true ]]; then
     agy plugin install https://github.com/addyosmani/agent-skills.git --silent || echo "   Agent Skills plugin installation failed; continuing." >&2
 fi
 
-# 5. Finalize Git Repository
-echo -e "\n\033[1;33m5️⃣ Finalizing Git Baseline...\033[0m"
+# 5. Review Git Repository
+echo -e "\n\033[1;33m5️⃣ Reviewing Git Repository...\033[0m"
 if [ -d ".git" ]; then
-    git add .
-    if ! git commit -m "feat: initial project setup with agent skills and tools" --quiet; then
-        echo "   Nothing committed; check Git identity or repository state." >&2
+    if [[ "$COMMIT_INITIAL_SETUP" == true ]]; then
+        git add .
+        if ! git commit -m "feat: initial project setup with agent skills and tools" --quiet; then
+            echo "   Nothing committed; check Git identity or repository state." >&2
+        fi
+        echo "   Git finalization phase complete; review any warnings above."
+    else
+        echo "   Current Git status:"
+        git status --short || echo "   Could not read Git status." >&2
+        echo "   No files were staged or committed. Use --commit-initial-setup to create the initial commit."
     fi
-    echo "   Git finalization phase complete; review any warnings above."
 fi
 
 echo -e "\n\033[1;32m==========================================================\033[0m"

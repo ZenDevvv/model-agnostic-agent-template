@@ -36,6 +36,17 @@ Before modifying code or designing cross-module features:
    - Dependency query: `graphify query "<question>"`
 4. **Maintain Graph Freshness:** Keep knowledge graph current via `graphify . --update` after introducing or restructuring modules.
 
+### Project Truth Protocol (WWG-inspired)
+
+This template uses a lightweight Wiki / Workspace / Governance model inspired by [WWG](https://www.npmjs.com/package/@homedesk/wwg):
+
+- `.project-truth/truth/` is canonical accepted project truth.
+- `.project-truth/workspace/` is compact agent context and current-task state.
+- `.project-truth/governance/` defines drift, verification, and recommendation rules.
+- `.project-truth/reports/` contains temporary evidence and handoffs; it never overrides truth.
+
+Before meaningful work, read `.project-truth/truth/project-truth-summary.md`, `.project-truth/truth/terminology.md`, `.project-truth/workspace/current-task.md`, and `.project-truth/governance/drift-guard.md`. Load the full truth and relevant architecture or decision files when the task changes accepted behavior. Code discoveries must be synchronized back into canonical truth before closeout.
+
 ---
 
 ## 3. Engineering Execution Lifecycle (6-Phase SDLC)
@@ -48,12 +59,12 @@ DEFINE ──▶ PLAN ──▶ BUILD ──▶ VERIFY ──▶ REVIEW ──�
 ```
 
 ### Phase 1: DEFINE (`/spec`)
-- **Specification First:** Draft a lightweight specification in `spec.md` with explicit objectives, boundary constraints, data schemas, API contracts, and acceptance criteria.
+- **Specification First:** Draft a task-scoped specification in `spec.md` with explicit objectives, boundary constraints, data schemas, API contracts, and acceptance criteria. Promote durable accepted requirements into `.project-truth/truth/requirements.md`.
 - **Clarify Ambiguities:** If requirements are ambiguous, invoke `interview-me` to ask targeted questions one at a time until 95% confidence is reached. Never guess critical requirements.
 - **Quality Gates:** Establish coverage thresholds and performance budgets before writing code (`constraint-driven-development`).
 
 ### Phase 2: PLAN (`/plan`)
-- **Atomic Decomposition:** Break specs down into sequential, verifiable tasks (~50–100 lines each) in `plan.md`.
+- **Atomic Decomposition:** Break the current `spec.md` down into sequential, verifiable tasks (~50–100 lines each) in `plan.md`. Treat both as task-scoped working documents, not canonical product truth.
 - **Dependency Ordering:** Order tasks so foundational types and contracts are established before consumers.
 
 ### Phase 3: BUILD (`/build`)
@@ -89,7 +100,7 @@ DEFINE ──▶ PLAN ──▶ BUILD ──▶ VERIFY ──▶ REVIEW ──�
 Apply the Design Suite (`Impeccable` + `Taste Skill` + `Emil Kowalski`) to produce high-end, human-crafted interfaces:
 
 ### Visual Quality & Design Tokens (Impeccable)
-- **Product Truth:** Maintain durable product principles in `PRODUCT.md` and design tokens in `DESIGN.md`.
+- **Project Truth:** Maintain durable product principles, UX direction, and design tokens in the relevant `.project-truth/truth/` documents.
 - **Deterministic Auditing:** Run `/impeccable audit` for 61 zero-token automated checks on contrast, typography hierarchy, and spacing rhythm.
 - **Strict Anti-Patterns:**
   - ❌ Never use generic fonts (Inter, Arial, system defaults) without explicit brand justification.
@@ -157,7 +168,7 @@ Invoke installed skills from `.agents/skills` / `agent/skills` based on the oper
 | **Performance & Ops** | `performance-optimization` | Profile and optimize Core Web Vitals, render loops, and network waterfalls. |
 | | `observability-and-instrumentation` | Add structured logging, traces, metrics, and failure diagnostics. |
 | **Design & Anti-Slop** | `design-taste-frontend` | Primary anti-slop creative direction, bespoke palettes, and typographic scale. |
-| | `impeccable` | Run 61-rule deterministic audits (`/impeccable audit`), token extraction (`DESIGN.md`), and clutter reduction. |
+| | `impeccable` | Run 61-rule deterministic audits (`/impeccable audit`), extract design guidance into `.project-truth/truth/design.md`, and reduce clutter. |
 | | `high-end-visual-design` | *(Optional Persona)* Agency-grade typography, subtle palette tints, and luxury styling. |
 | | `minimalist-ui` | *(Optional Persona)* Editorial layouts, clean typographic hierarchy, and warm monochromes. |
 | | `industrial-brutalist-ui` | *(Optional Persona)* High-contrast utilitarian grids, monospace data views, raw aesthetics. |

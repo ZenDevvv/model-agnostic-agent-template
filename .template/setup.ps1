@@ -7,6 +7,8 @@
 [CmdletBinding()]
 param(
     [switch]$KeepOrigin,
+    [switch]$ResetGit,
+    [switch]$CommitInitialSetup,
     [ValidateSet("motion", "frontend", "minimal", "custom")]
     [string]$DesignProfile = "motion",
     [switch]$DryRun
@@ -22,6 +24,10 @@ function Invoke-RequiredCommand {
     if ($LASTEXITCODE -ne 0) {
         throw "Command failed with exit code $LASTEXITCODE`: $FilePath $($ArgumentList -join ' ')"
     }
+}
+
+if ($KeepOrigin -and $ResetGit) {
+    throw "Choose either -KeepOrigin or -ResetGit, not both."
 }
 
 # Ensure script executes in the project root
@@ -93,24 +99,48 @@ if ($pythonCmd) {
     Write-Host "   [!] Python not found on PATH. Install Python 3.10+ to enable Graphify." -ForegroundColor Red
 }
 
-# 2. Check Git, Detach from Template, & Install Graphify Post-Commit Hook
+# 2. Check Git, optionally detach from template, & install Graphify post-commit hook
 Write-Host "`n[2/5] Checking Git Repository..." -ForegroundColor Yellow
 $originUrl = (git remote get-url origin 2>$null)
 
-if ($originUrl -like "*model-agnostic-agent-template*" -and -not $KeepOrigin) {
+if ($originUrl -like "*model-agnostic-agent-template*") {
     Write-Host "   [*] Detected clone of template repository ($originUrl)." -ForegroundColor Yellow
-    Write-Host "   Disconnecting from template and initializing fresh Git repository for your project..." -ForegroundColor Cyan
-    try {
-        if (Test-Path ".git") {
-            Get-ChildItem -Path ".git" -Recurse -Force | ForEach-Object { $_.Attributes = 'Normal' }
-            Remove-Item -Path ".git" -Recurse -Force
+    $resetTemplateGit = $false
+
+    if ($KeepOrigin) {
+        Write-Host "   Keeping the existing Git repository by request." -ForegroundColor Gray
+    } elseif ($ResetGit) {
+        $resetTemplateGit = $true
+    } elseif (-not $env:CI -and -not [Console]::IsInputRedirected) {
+        Write-Host "   Choose Git setup:" -ForegroundColor Cyan
+        Write-Host "     [1] Start fresh - delete Git history and the template remote (default)"
+        Write-Host "     [2] Keep existing - preserve Git history and remotes"
+        $gitChoice = Read-Host "Choose 1-2, or press Enter to start fresh"
+        if ([string]::IsNullOrWhiteSpace($gitChoice) -or $gitChoice -eq "1") {
+            $resetTemplateGit = $true
+        } elseif ($gitChoice -eq "2") {
+            Write-Host "   Keeping the existing Git repository." -ForegroundColor Gray
+        } else {
+            Write-Host "   Unrecognized choice; keeping the existing Git repository." -ForegroundColor DarkYellow
         }
-        git init -b main | Out-Null
-        git config core.autocrlf true
-        git config core.safecrlf false
-        Write-Host "   [+] Initialized fresh, detached Git repository (main)." -ForegroundColor Green
-    } catch {
-        Write-Host "   [!] Could not reset .git automatically: $_" -ForegroundColor DarkYellow
+    } else {
+        Write-Host "   Non-interactive setup keeps the existing Git repository. Use -ResetGit to start fresh." -ForegroundColor Gray
+    }
+
+    if ($resetTemplateGit) {
+        Write-Host "   Disconnecting from template and initializing fresh Git repository for your project..." -ForegroundColor Cyan
+        try {
+            if (Test-Path ".git") {
+                Get-ChildItem -Path ".git" -Recurse -Force | ForEach-Object { $_.Attributes = 'Normal' }
+                Remove-Item -Path ".git" -Recurse -Force
+            }
+            git init -b main | Out-Null
+            git config core.autocrlf true
+            git config core.safecrlf false
+            Write-Host "   [+] Initialized fresh, detached Git repository (main)." -ForegroundColor Green
+        } catch {
+            Write-Host "   [!] Could not reset .git automatically: $_" -ForegroundColor DarkYellow
+        }
     }
 } elseif (-not (Test-Path ".git")) {
     Write-Host "   Initializing fresh Git repository for your project..." -ForegroundColor Cyan
@@ -215,15 +245,33 @@ if ($agyCmd) {
     Write-Host "   Antigravity plugin phase complete; review any warnings above." -ForegroundColor Gray
 }
 
-# 5. Finalize Git Repository
-Write-Host "`n[5/5] Finalizing Git Baseline..." -ForegroundColor Yellow
+# 5. Review Git Repository
+Write-Host "`n[5/5] Reviewing Git Repository..." -ForegroundColor Yellow
 if (Test-Path ".git") {
-    try {
-        Invoke-RequiredCommand git @('add', '.')
-        Invoke-RequiredCommand git @('commit', '-m', 'feat: initial project setup with agent skills and tools', '--quiet')
-        Write-Host "   [+] Staged and committed initial stack to Git." -ForegroundColor Green
-    } catch {
-        Write-Host "   [i] Note: Nothing to commit or git baseline already set." -ForegroundColor Gray
+    if ($CommitInitialSetup) {
+        try {
+            Invoke-RequiredCommand git @('add', '.')
+            Invoke-RequiredCommand git @('commit', '-m', 'feat: initial project setup with agent skills and tools', '--quiet')
+            Write-Host "   [+] Staged and committed initial stack to Git." -ForegroundColor Green
+        } catch {
+            Write-Host "   [i] Note: Nothing to commit or git baseline already set." -ForegroundColor Gray
+        }
+    } else {
+        try {
+            $changes = @(git status --short)
+            if ($LASTEXITCODE -ne 0) {
+                throw "git status failed with exit code $LASTEXITCODE."
+            }
+            if ($changes) {
+                Write-Host "   Current uncommitted changes:" -ForegroundColor Yellow
+                $changes | ForEach-Object { Write-Host "     $_" }
+            } else {
+                Write-Host "   Working tree is clean." -ForegroundColor Green
+            }
+            Write-Host "   No files were staged or committed. Use -CommitInitialSetup to create the initial commit." -ForegroundColor Gray
+        } catch {
+            Write-Host "   [i] Could not read Git status: $_" -ForegroundColor Gray
+        }
     }
 }
 

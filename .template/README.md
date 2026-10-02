@@ -1,7 +1,7 @@
 # 🚀 Model-Agnostic Agent Template
 
 > A turnkey, production-grade starter template for disciplined, high-performance "vibe coding".  
-> Built on 4 Core Pillars: **Graphify**, **Agents**, **Skills**, and **Ponytail** — supplemented by a dedicated **Frontend Design & Motion Suite** (Impeccable, Taste Skill, Emil Kowalski). 100% model-agnostic.
+> Built on 5 Core Pillars: **Project Truth**, **Graphify**, **Agents**, **Skills**, and **Ponytail** — supplemented by a dedicated **Frontend Design & Motion Suite** (Impeccable, Taste Skill, Emil Kowalski). 100% model-agnostic.
 
 [![Template Repository](https://img.shields.io/badge/GitHub-Template_Repository-blue?logo=github)](https://github.com/ZenDevvv/model-agnostic-agent-template)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../LICENSE)
@@ -9,11 +9,12 @@
 
 ---
 
-## ⚡ The 4 Core Pillars of this Template
+## ⚡ The 5 Core Pillars of this Template
 
 | Pillar | Powered By | What It Does For Your Project |
 |---|---|---|
 | **1. Structural Awareness** | [Graphify](https://github.com/Graphify-Labs/graphify) | Ingests code (AST across 13+ languages), docs, and diagrams into a knowledge graph. Saves **up to 71.5x tokens** per query vs reading raw files and identifies architectural "God nodes". |
+| **2. Project Truth** | [WWG-inspired `.project-truth/` layer](https://www.npmjs.com/package/@homedesk/wwg) | Separates canonical truth, compact agent workspace context, and governance/drift checks without importing WWG's full scaffold. |
 | **2. Specialist Personas** | **Agents** ([addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)) | 4 pre-configured review personas: Senior Staff Code Reviewer, QA Test Engineer, Security Auditor, and Web Performance Auditor. |
 | **3. Engineering Lifecycle** | **Skills** ([addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)) | Addy Osmani's 25 production skills. Enforces Red-Green-Refactor TDD, PRDs before code (`/spec`), atomic task planning (`/plan`), and atomic ~100-line changes (`/build auto`). |
 | **4. Anti-Bloat Restraint** | [Ponytail](https://github.com/dietrichgebert/ponytail) | The "laziest senior dev in the room." Enforces the 7-rung ladder (YAGNI → Native → 1-liner). Slashes generated lines of code by **~54%** on average while maintaining 100% safety. |
@@ -26,7 +27,7 @@ To complement the core engineering pillars, this template comes pre-configured w
 
 | Design Skill | Creator | Focus & Capabilities |
 |---|---|---|
-| **[Impeccable](https://github.com/pbakaus/impeccable)** | Paul Bakaus (ex-Google) | **Design Systems & UX Quality:** Records durable product truth in `PRODUCT.md` (`/impeccable init`), provides 24 UX commands (`/impeccable craft`, `audit`, `bolder`, `quieter`, `polish`), and runs **61 zero-token deterministic rules** auditing contrast and hierarchy. |
+| **[Impeccable](https://github.com/pbakaus/impeccable)** | Paul Bakaus (ex-Google) | **Design Systems & UX Quality:** Records accepted product and design truth in `.project-truth/truth/` (`/impeccable init`), provides 24 UX commands (`/impeccable craft`, `audit`, `bolder`, `quieter`, `polish`), and runs **61 zero-token deterministic rules** auditing contrast and hierarchy. |
 | **[Taste Skill](https://github.com/leonxlnx/taste-skill)** | Leon Lin (`leonxlnx`) | **Anti-Slop Art Direction:** 3 tunable 1–10 dials (`DESIGN_VARIANCE`, `MOTION_INTENSITY`, `VISUAL_DENSITY`) and distinct visual genres (Luxury Soft, Minimalist Editorial, Brutalist) that stop models from producing bland cookie-cutter templates. |
 | **[Emil Kowalski's Skills](https://github.com/emilkowalski/skills)** | Emil Kowalski (Linear / Vercel) | **Motion Physics & Mobile Polish:** Mathematically correct cubic-bezier deceleration curves, Apple WWDC fluid physics, and mobile-native touch fixes (`100dvh`, tap delay elimination, safe-area padding). |
 
@@ -57,6 +58,10 @@ cd my-new-project
   ```
 
 By default, setup installs the Motion design profile: Impeccable, Taste Skill, and Emil Kowalski motion/mobile skills. Choose frontend, minimal, or custom interactively, or use `-DesignProfile` / `--design-profile`. Add `-DryRun` / `--dry-run` to preview the selected profile without changing the project.
+
+When setup detects a clone of this template, an interactive run offers two Git choices: **start fresh** (delete the current Git history and template remote) or **keep existing**. Start fresh is option 1 and is selected by pressing Enter. Non-interactive and CI runs preserve the existing repository unless you explicitly pass `-ResetGit` (PowerShell) or `--reset-git` (Bash). Use `-KeepOrigin` / `--keep-origin` to preserve it explicitly in an interactive run.
+
+Setup reports `git status --short` but does not stage or commit files by default. To opt into the initial commit, pass `-CommitInitialSetup` in PowerShell or `--commit-initial-setup` in Bash. The opt-in commit uses `feat: initial project setup with agent skills and tools`.
 
 Setup then automatically:
 
@@ -111,22 +116,28 @@ When you ask the AI to build or change something, the agent is governed by [AGEN
 * Before touching multi-module code, the agent inspects `graphify-out/GRAPH_REPORT.md` or queries the AST graph (e.g. `graphify query "What connects module X to service Y?"`).
 * It identifies "God nodes" and cross-module dependencies to calculate the blast radius before modifying anything.
 
-#### 2. Requirements Definition (`/spec`)
+#### 2. Project Truth (WWG-inspired)
+* `.project-truth/truth/` stores canonical product, requirements, terminology, architecture, decisions, principles, and design truth.
+* `.project-truth/workspace/` stores compact context, the current task, and agent handoff guidance.
+* `.project-truth/governance/` stores drift, test-enforcement, and recommendation rules.
+* Reports and Graphify output are evidence and derived context; they do not silently override canonical truth.
+
+#### 3. Requirements Definition (`/spec`)
 * The agent drafts a lightweight Product Requirements Document (`spec.md`) with explicit constraints, API contracts, and acceptance criteria.
 * If your prompt was ambiguous, it triggers `interview-me` to clarify requirements one question at a time.
 
-#### 3. Task Breakdown (`/plan`)
+#### 4. Task Breakdown (`/plan`)
 * Decomposes the spec into small, verifiable implementation steps (~100 lines each) with strict dependency ordering in `plan.md`.
 
-#### 4. Autonomous TDD Implementation (`/build` / `/build auto`)
+#### 5. Autonomous TDD Implementation (`/build` / `/build auto`)
 * Implements tasks one vertical slice at a time using strict Red-Green-Refactor Test-Driven Development (TDD).
 * **Enforces the Ponytail 7-Rung Ladder:** Refuses to write unnecessary boilerplate. Stops at the earliest rung: YAGNI ➔ Codebase reuse ➔ Stdlib ➔ Native platform feature ➔ 1-liner ➔ Minimum viable code.
 
-#### 5. Senior Staff Review (`/review` & `/code-simplify`)
+#### 6. Senior Staff Review (`/review` & `/code-simplify`)
 * Evaluates code across 5 axes: Correctness, Security, Performance, Maintainability, and Simplicity.
 * Applies Chesterton's Fence to strip accidental complexity and eliminate dead code without breaking tests.
 
-#### 6. Shipping & Continuous Graph Sync (`/ship`)
+#### 7. Shipping & Continuous Graph Sync (`/ship`)
 * Commits the changes with atomic, descriptive messages.
 * The installed post-commit hook automatically updates `graphify-out/` so the knowledge graph is always in sync for your next prompt.
 
@@ -169,6 +180,8 @@ my-new-project/
 ```
 
 ---
+
+The `.project-truth/` directory is the canonical project-truth, workspace, governance, and report layer. It is separate from application code and from `.template/` machinery.
 
 ## 🧠 100% Model-Agnostic (Free, Budget & Frontier Models)
 

@@ -1,7 +1,7 @@
 # 🚀 Model-Agnostic Agent Template
 
 > A turnkey, production-grade starter template for disciplined, high-performance "vibe coding".  
-> Built on 4 Core Pillars: **Graphify**, **Agents**, **Skills**, and **Ponytail** — supplemented by a dedicated **Frontend Design & Motion Suite** (Impeccable, Taste Skill, Emil Kowalski). 100% model-agnostic.
+> Built on 5 Core Pillars: **Project Truth**, **Graphify**, **Agents**, **Skills**, and **Ponytail** — supplemented by a dedicated **Frontend Design & Motion Suite** (Impeccable, Taste Skill, Emil Kowalski). 100% model-agnostic.
 
 [![Template Repository](https://img.shields.io/badge/GitHub-Template_Repository-blue?logo=github)](https://github.com/ZenDevvv/model-agnostic-agent-template)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -28,7 +28,9 @@ cd my-new-project
   bash .template/setup.sh
   ```
 
-This configures your Git repository, installs Graphify, sets up post-commit hooks, and installs the Motion design profile by default. The setup script also supports frontend, minimal, and custom design profiles.
+This configures your Git repository, installs Graphify, sets up post-commit hooks, and installs the Motion design profile by default. The setup script also supports frontend, minimal, and custom design profiles. When it detects a clone of this template, interactive setup asks whether to start fresh or preserve the existing repository; starting fresh is option 1 and the Enter default. Non-interactive setup preserves Git history unless you explicitly pass `-ResetGit` (PowerShell) or `--reset-git` (Bash). Setup never stages or commits files by default; use `-CommitInitialSetup` or `--commit-initial-setup` to opt in.
+
+The template includes a lightweight project-truth system inspired by [WWG (Wiki, Workspace, Governance)](https://www.npmjs.com/package/@homedesk/wwg). It keeps canonical product truth, compact agent context, current task state, and drift/verification rules in `.project-truth/`, while Graphify provides the derived architectural dependency map.
 
 ### 3. Start Building!
 Open your AI coding assistant (Antigravity, Cursor, Claude Code, or Codex) and start chatting:
@@ -55,6 +57,8 @@ my-project/
 └── README.md            # ⭐ This file (replace with your project's README!)
 ```
 
+> The `.project-truth/` directory is the canonical project-truth, workspace, governance, and report layer. It remains separate from application code in `app/` and template machinery in `.template/`.
+
 > **💡 Note for your project:** Once you initialize your project, feel free to replace this root `README.md` with your own project documentation. The complete template reference will always remain preserved in [`.template/README.md`](.template/README.md).
 
 ---
@@ -65,6 +69,7 @@ For complete deep-dive documentation on the architecture and tools:
 - [Full Template Guide & Workflow](.template/README.md)
 - [Tools Overview & Architecture](.template/docs/tools-for-vibe-coding.md)
 - [Graphify (Knowledge Graph)](.template/docs/graphify.md)
+- [Project Truth & WWG-inspired Workflow](.project-truth/README.md)
 - [Ponytail (Anti-Bloat & YAGNI)](.template/docs/ponytail.md)
 - [Agent Skills (25-Skill SDLC & TDD)](.template/docs/agent-skills.md)
 - [Impeccable (Design Rules & Commands)](.template/docs/impeccable.md)

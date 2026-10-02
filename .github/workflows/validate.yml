@@ -1,4 +1,4 @@
-what name: Validate template
+name: Validate template
 
 on:
   push:
@@ -31,3 +31,5 @@ jobs:
         run: |
           $matches = rg -n 'file:///|C:/Users/|c:/Users/' . --glob '*.md' --glob '*.mdc'
           if ($LASTEXITCODE -eq 0) { $matches; exit 1 }
+      - name: Validate project-truth structure
+        run: bash .template/validate-project-truth.sh

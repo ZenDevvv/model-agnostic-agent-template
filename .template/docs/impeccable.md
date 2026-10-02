@@ -22,14 +22,14 @@ Every major AI model was trained on the same ubiquitous SaaS landing page templa
 * **Low-Contrast Illegibility:** Light gray text placed directly on saturated or dark backgrounds.
 * **The Icon Tile Habit:** A rounded-square icon badge positioned clumsily over every sub-heading.
 
-**Impeccable** eliminates this generic "AI look" by establishing durable product context in `PRODUCT.md`, enforcing design tokens in `DESIGN.md`, and running **61 deterministic detector rules** that catch design flaws **without consuming a single LLM API token**.
+**Impeccable** eliminates this generic "AI look" by establishing durable product and design context in `.project-truth/truth/`, and running **61 deterministic detector rules** that catch design flaws **without consuming a single LLM API token**.
 
 ---
 
 ## 🎯 Key Architectural Pillars
 
-### 1. Durable Product Truth (`PRODUCT.md`)
-Running `/impeccable init` performs an interactive, one-time setup that captures the real identity of your product: target audience, voice, constraints, core purpose, and operating context. Future AI design commands query `PRODUCT.md` so they never confuse your product's core intent with superficial styling choices.
+### 1. Durable Product Truth (`.project-truth/truth/`)
+Running `/impeccable init` should capture the real identity of your product and update the relevant `.project-truth/truth/` files: target audience, voice, constraints, core purpose, design direction, and operating context. Future AI design commands should use canonical project truth so they never confuse product intent with superficial styling choices.
 
 ### 2. 61 Zero-Token Deterministic Quality Rules
 Impeccable ships with a local binary engine that evaluates frontend code deterministically (no API keys, zero token fees):
@@ -49,9 +49,9 @@ All commands are executed via `/impeccable <command>`:
 
 | Command | Category | What It Does |
 |---|---|---|
-| `/impeccable init` | **Setup** | One-time project setup: asks for product context, writes `PRODUCT.md`, recommends next design steps. |
+| `/impeccable init` | **Setup** | One-time project setup: asks for product context, updates `.project-truth/truth/`, and recommends next design steps. |
 | `/impeccable craft` | **Build** | Full shape-then-build design workflow with live visual variant iteration. |
-| `/impeccable document` | **System** | Analyzes existing code and generates a standardized root `DESIGN.md`. |
+| `/impeccable document` | **System** | Analyzes existing code and updates `.project-truth/truth/design.md` with reviewable design guidance. |
 | `/impeccable extract` | **System** | Extracts reusable UI components, colors, and typography into clean design tokens. |
 | `/impeccable shape` | **UX** | Plans layout, hierarchy, and UX flows before generating code. |
 | `/impeccable critique` | **Review** | Comprehensive UX design review focusing on visual hierarchy, clarity, and tone. |
