@@ -125,7 +125,7 @@ Tune the three 1–10 dials to guide layout creativity and density:
 - When crafting interactive 3D hero elements, spatial badges, or product showcases, use `img2threejs` to reconstruct 2D reference images as pure TypeScript / Three.js code (`THREE.Group`).
 - **Zero Asset Bloat:** Do not check in heavy `.glb`/`.obj` 3D binaries when procedural Three.js primitives and shaders suffice.
 - **Hierarchy & Interaction:** Always expose clean pivots, sockets, raycast colliders, and `userData.tick` hooks for idle drift and mouse-tilt interaction.
-- See [`docs/img2threejs.md`](docs/img2threejs.md) for the 8-stage pipeline.
+- See [`.template/docs/img2threejs.md`](.template/docs/img2threejs.md) for the 8-stage pipeline.
 
 ---
 

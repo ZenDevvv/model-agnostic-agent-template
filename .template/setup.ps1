@@ -9,6 +9,12 @@ param(
     [switch]$KeepOrigin
 )
 
+# Ensure script executes in the project root
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+if ((Split-Path $ScriptDir -Leaf) -eq ".template") {
+    Set-Location (Split-Path $ScriptDir -Parent)
+}
+
 Write-Host "==========================================================" -ForegroundColor Cyan
 Write-Host "   >> Initializing Vibe Coding Supercharged Template      " -ForegroundColor Cyan
 Write-Host "      Stack: Ponytail + Graphify + Agent Skills           " -ForegroundColor Cyan

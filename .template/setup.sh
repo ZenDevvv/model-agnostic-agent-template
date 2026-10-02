@@ -4,6 +4,12 @@
 
 set -e
 
+# Ensure script executes in the project root
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ "$(basename "$SCRIPT_DIR")" == ".template" ]]; then
+    cd "$SCRIPT_DIR/.."
+fi
+
 echo -e "\033[1;36m==========================================================\033[0m"
 echo -e "\033[1;36m   🚀 Initializing Vibe Coding Supercharged Template      \033[0m"
 echo -e "\033[1;36m      Stack: Ponytail + Graphify + Agent Skills           \033[0m"
