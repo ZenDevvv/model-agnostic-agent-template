@@ -1,7 +1,7 @@
 # 🚀 Model-Agnostic Agent Template
 
 > A turnkey, production-grade starter template for disciplined, high-performance "vibe coding".  
-> Integrates **Graphify**, **Ponytail**, and **Addy Osmani's Agent Skills** — 100% model-agnostic (from Claude and GPT-5 to Gemini Flash, DeepSeek, and Space Bunny).
+> Integrates **Graphify**, **Ponytail**, **Addy Osmani's Agent Skills**, **Impeccable**, **Taste Skill**, and **Emil Kowalski's Motion Skills** — 100% model-agnostic (from Claude and GPT-5 to Gemini Flash, DeepSeek, and Space Bunny).
 
 [![Template Repository](https://img.shields.io/badge/GitHub-Template_Repository-blue?logo=github)](https://github.com/ZenDevvv/model-agnostic-agent-template)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -9,13 +9,16 @@
 
 ---
 
-## ⚡ The 3 Pillars of this Template
+## ⚡ The 6 Pillars of this Template
 
 | Pillar | Powered By | What It Does For Your Project |
 |---|---|---|
 | **1. Structural Awareness** | [Graphify](https://github.com/Graphify-Labs/graphify) | Ingests code (AST across 13+ languages), docs, and diagrams into a knowledge graph. Saves **up to 71.5x tokens** per query vs reading raw files and identifies architectural "God nodes". |
 | **2. Engineering Discipline** | [Agent Skills](https://github.com/addyosmani/agent-skills) | Addy Osmani's 25 production skills and 4 specialist personas. Enforces Red-Green-Refactor TDD, PRDs before code (`/spec`), and atomic ~100-line changes (`/build auto`). |
 | **3. Anti-Bloat Restraint** | [Ponytail](https://github.com/dietrichgebert/ponytail) | The "laziest senior dev in the room." Enforces the 7-rung ladder (YAGNI → Native → 1-liner). Slashes generated lines of code by **~54%** on average while maintaining 100% safety. |
+| **4. Product Truth & UX Audit** | [Impeccable](https://github.com/pbakaus/impeccable) | Paul Bakaus's design system guidance. Captures durable product truth in `PRODUCT.md` (`/impeccable init`), 24 UX commands, and **61 zero-token deterministic rules** auditing contrast and hierarchy. |
+| **5. Anti-Slop Art Direction** | [Taste Skill](https://github.com/leonxlnx/taste-skill) | 3 tunable 1–10 dials (Variance, Motion, Density) and bespoke visual genres (Luxury Soft, Minimalist, Brutalist) that stop agents from generating generic corporate templates. |
+| **6. Motion & Micro-Craft** | [Emil Kowalski's Skills](https://github.com/emilkowalski/skills) | Motion design from Linear & Vercel design engineer Emil Kowalski. Mathematically correct cubic-bezier easing, Apple WWDC fluid physics, and mobile-native touch fixes (`100dvh`, safe areas). |
 
 ---
 
@@ -117,12 +120,16 @@ my-new-project/
 │   └── rules/
 │       ├── ponytail.mdc         # Cursor rule: YAGNI & 7-rung ladder
 │       ├── agent-skills.mdc     # Cursor rule: 6-phase SDLC & TDD
-│       └── graphify.mdc         # Cursor rule: Architectural context checking
+│       ├── graphify.mdc         # Cursor rule: Architectural context checking
+│       └── design-and-motion.mdc# Cursor rule: Impeccable, Taste dials & Emil motion
 ├── docs/                        # Deep-dive guides for each pillar
 │   ├── tools-for-vibe-coding.md # Master overview and pipeline guide
 │   ├── ponytail.md              # Complete Ponytail reference & benchmarks
 │   ├── graphify.md              # Complete Graphify reference & AST setup
 │   ├── agent-skills.md          # Complete 25-skill SDLC reference
+│   ├── emil-skills.md           # Emil Kowalski motion & micro-interaction guide
+│   ├── impeccable.md            # Impeccable 24 commands & 61 quality rules
+│   ├── taste-skill.md           # Taste Skill anti-slop dials & visual personas
 │   └── omniroute.md             # (Optional) Multi-provider gateway guide
 ├── AGENTS.md                    # Universal agent directives (Cursor, Codex, OpenCode, etc.)
 ├── CLAUDE.md                    # Claude Code directives and slash commands

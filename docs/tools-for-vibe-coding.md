@@ -6,25 +6,26 @@
 
 ## 🧭 The Vibe Coding Stack at a Glance
 
-When vibe coding, developers face four major failure modes:
+When vibe coding, developers face five major failure modes:
 1. **Bloat & Over-engineering:** AI models default to writing hundreds of lines of complex code and pulling in heavyweight dependencies for simple problems.
 2. **Context Blindness:** In large codebases, feeding raw source files into LLM context windows quickly exhausts token budgets and causes the AI to hallucinate or miss cross-module connections.
 3. **Lack of Engineering Discipline:** Without quality gates, agents produce unverified, untested, and fragile changes that fail silently.
 4. **Token Limits & API Bills:** Agentic loops burn through millions of tokens, hitting rate limits and running up costly inference bills.
+5. **Generic "AI Slop" & Bad Frontend Taste:** AI models generate cookie-cutter templates with identical fonts (Inter), awkward animation curves, harsh borders, and nested cards.
 
-This toolkit solves all four bottlenecks:
+This toolkit solves all five bottlenecks:
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│                           THE VIBE CODING PIPELINE                              │
-├───────────────────┬───────────────────┬────────────────────┬────────────────────┤
-│   1. GATEWAY      │   2. STRUCTURE    │   3. WORKFLOW      │    4. RESTRAINT    │
-│   (Cost & Quota)  │  (Knowledge Map)  │ (Lifecycle Gates)  │  (Anti-Bloat/YAGNI)│
-├───────────────────┼───────────────────┼────────────────────┼────────────────────┤
-│    OmniRoute      │     Graphify      │    Agent Skills    │      Ponytail      │
-│  Free AI Gateway  │  Knowledge Graph  │ Senior Engineering │ "Laziest Dev" Rule │
-│  & Multi-Provider │  & AST Navigation │ Workflows (Addy O) │ & 1-Liner Ladder   │
-└───────────────────┴───────────────────┴────────────────────┴────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                  THE VIBE CODING PIPELINE                                       │
+├──────────────────┬──────────────────┬──────────────────┬─────────────────────┬──────────────────┤
+│   1. GATEWAY     │   2. STRUCTURE   │   3. WORKFLOW    │     4. DESIGN       │   5. RESTRAINT   │
+│  (Cost & Quota)  │ (Knowledge Map)  │(Lifecycle Gates) │(Aesthetics & Motion)│(Anti-Bloat/YAGNI)│
+├──────────────────┼──────────────────┼──────────────────┼─────────────────────┼──────────────────┤
+│    OmniRoute     │     Graphify     │   Agent Skills   │Impeccable/Taste/Emil│     Ponytail     │
+│ Free AI Gateway  │ Knowledge Graph  │Senior Engineering│ Anti-Slop, Dials &  │"Laziest Dev" Rule│
+│ & Multi-Provider │ & AST Navigation │Workflows (Addy O)│ Fluid Micro-Motion  │ & 1-Liner Ladder │
+└──────────────────┴──────────────────┴──────────────────┴─────────────────────┴──────────────────┘
 ```
 
 ---
@@ -266,38 +267,106 @@ Includes ready-to-run personas for targeted multi-agent reviews:
 
 ---
 
-## ⚡ How These 4 Tools Work Together (The Ultimate Synergy)
+## 5. 🎨 Emil Kowalski's Skills
 
-Using these four tools simultaneously creates an unbeatable vibe-coding workflow where speed does not compromise software quality:
+*“Skills for designers and engineers to build better user interfaces — Stand out in a sea of AI slop.”*
+
+* **Repository:** [https://github.com/emilkowalski/skills](https://github.com/emilkowalski/skills)
+* **Author:** Emil Kowalski (Design Engineer at Linear & Vercel, creator of [Sonner](https://sonner.emilkowal.ski), author of *Animations on the Web*)
+* **Primary Role:** Motion Physics, Micro-Interactions, UI Craftsmanship & Mobile Polish
+
+### 📌 Overview
+AI models lack intuitive physical taste: they use `ease-in` for entering modals (when it must decelerate via `ease-out`), slap harsh solid borders on everything, hand-roll fragile custom toasts, and ignore mobile touch bugs (100vh jumping, sticky hover, tap delay).
+
+Emil packages years of Linear and Vercel design engineering into 13 high-impact skills that elevate frontend animations from robotic to Apple-level fluidity.
+
+### 🎯 Key Capabilities
+* **`animate` & `emil-design-eng`:** Teaches agents mathematically correct cubic-bezier curves, natural durations (150–300ms), and transform/opacity-only rendering.
+* **`mobile-native`:** Eliminates telltale mobile-web glitches (fixes the 100vh viewport bug with `100dvh`, removes sticky hover on touchscreens, stops input zoom).
+* **`review-animations` & `improve-animations`:** Audits CSS/JS animations and generates clean, prioritized refactoring plans.
+* **`apple-design`:** Distills Apple WWDC fluid motion principles for the modern web.
+* **`pick-ui-library`:** Prevents agents from reinventing wheels by guiding them to vetted UI primitives (Radix, Ark UI, Sonner).
+
+* **Quick Install:**
+  ```bash
+  npx skills@latest add emilkowalski/skills
+  ```
+
+---
+
+## 6. 💎 Impeccable
+
+*“Design guidance for AI coding agents. 1 skill, 24 commands, live browser iteration, and 61 deterministic detector rules.”*
+
+* **Repository:** [https://github.com/pbakaus/impeccable](https://github.com/pbakaus/impeccable)
+* **Author:** Paul Bakaus (Former Google Web Creator Advocate, jQuery UI Core team)
+* **Primary Role:** Design Systems, UX Guidance & Static Design Quality Detector
+
+### 📌 Overview
+AI models trained on the same SaaS landing pages default to predictable visual clichés: Inter font for everything, purple-to-blue gradients, cards nested inside cards, gray text on colored backgrounds, and rounded icon badges above every title.
+
+**Impeccable** establishes durable product truth in `PRODUCT.md` (`/impeccable init`), maps design tokens in `DESIGN.md`, and runs **61 deterministic detector rules** that catch accessibility, hierarchy, and contrast errors **with zero LLM token cost**.
+
+### 🎯 Key Capabilities
+* **61 Zero-Token Detector Rules:** Deterministically checks WCAG AA contrast, modular typographic scales, spacing rhythm, and card nesting without API fees.
+* **24 Design Commands:** From `/impeccable craft` and `/impeccable critique` to `/impeccable bolder`, `/impeccable quieter`, `/impeccable distill`, and `/impeccable polish`.
+* **Live Browser Mode (`/impeccable live`):** Real-time visual variant testing directly in your browser before committing code.
+
+* **Quick Install:**
+  ```bash
+  npx impeccable install
+  ```
+
+---
+
+## 7. 🎯 Taste Skill
+
+*“The Anti-Slop Frontend Framework for AI Agents.”*
+
+* **Repository:** [https://github.com/leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill)
+* **Author:** Leon Lin (`leonxlnx`)
+* **Primary Role:** Frontend Art Direction, Aesthetic Personas, Anti-Slop Dials & Image-to-Code
+
+### 📌 Overview
+Breaks agents out of bland corporate templates by introducing **tunable 1–10 aesthetic dials** and specialized visual genres (luxury minimalism, editorial product, or Swiss brutalism).
+
+### 🎯 Key Capabilities
+* **3 Top-of-File Tuning Dials (1–10):**
+  * `DESIGN_VARIANCE`: Layout asymmetry & creative composition (clean ──▶ avant-garde).
+  * `MOTION_INTENSITY`: Animation depth (simple hover ──▶ magnetic scroll GSAP).
+  * `VISUAL_DENSITY`: Viewport information density (airy luxury ──▶ dense dashboard).
+* **Targeted Visual Personas:** `high-end-visual-design` (luxury/calm), `minimalist-ui` (Notion/Linear editorial), `industrial-brutalist-ui` (high-contrast Swiss type), and `redesign-existing-projects`.
+* **Image-to-Code:** Generates high-fidelity design comps (`imagegen-frontend-web`, `brandkit`) to visually steer the coding agent before implementation.
+
+* **Quick Install:**
+  ```bash
+  npx skills add https://github.com/Leonxlnx/taste-skill
+  ```
+
+---
+
+## ⚡ The Complete 5-Layer Synergy
+
+When combined, these tools form an end-to-end powerhouse pipeline where cost, speed, engineering discipline, and visual beauty are harmonized:
 
 ```
-                  ┌─────────────────────────────────────┐
-                  │              OmniRoute              │
-                  │   Unified, Resilient AI Gateway     │
-                  │   (~1.62B Free Tokens + Compression)│
-                  └──────────────────┬──────────────────┘
-                                     │ (API Calls / Tokens)
-                                     ▼
-                  ┌─────────────────────────────────────┐
-                  │             Agent Skills            │
-                  │       (Addy Osmani's Framework)     │
-                  │  Spec ──▶ Plan ──▶ TDD ──▶ Review   │
-                  └───────┬─────────────────────┬───────┘
-                          │                     │
-       Context Retrieval  │                     │ Code Generation Guidance
-                          ▼                     ▼
-┌─────────────────────────────────┐   ┌─────────────────────────────────┐
-│            Graphify             │   │            Ponytail             │
-│ Multimodal Knowledge Graph      │   │ "Senior Dev" Simplification     │
-│ Compressed Architectural Context│   │ YAGNI Ladder: Reuse Native &    │
-│ 71.5x Token Efficiency          │   │ Browser Built-ins First         │
-└─────────────────────────────────┘   └─────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                                 THE COMPLETE STACK                                     │
+├───────────────────┬────────────────────────────────────────────────────────────────────┤
+│ 1. Gateway        │ OmniRoute: ~1.62B Free Tokens + Cascading Multi-Provider Failover  │
+│ 2. Workflow (SDLC)│ Agent Skills: PRDs (/spec), Atomic Tasks (/plan), TDD (/build auto)│
+│ 3. Architecture   │ Graphify: 71.5x Token Compression & Multimodal AST Knowledge Graph │
+│ 4. Design & Motion│ Impeccable (Product Truth & Audit) + Taste Skill (Anti-Slop Dials) │
+│                   │ + Emil Kowalski (Fluid Animation Curves & Mobile-Native Polish)    │
+│ 5. Restraint      │ Ponytail: The 7-Rung YAGNI Ladder & Native 1-Liners                │
+└───────────────────┴────────────────────────────────────────────────────────────────────┘
 ```
 
-1. **OmniRoute** provides the resilient, low-latency, free/low-cost inference gateway so your agent never gets blocked by rate limits or token exhaustion.
-2. **Agent Skills** sets the project trajectory: it conducts an upfront interview (`/spec`), plans atomic tasks (`/plan`), and requires tests before implementation (`/test`).
-3. **Graphify** supplies the agent with compressed, high-density architectural context (71.5x token savings) so it understands existing code and dependencies without getting lost.
-4. **Ponytail** polices every line of code generated: when the agent tries to install an unnecessary 100KB dependency or write 60 lines of boilerplate, Ponytail steps in and replaces it with a clean 1-line native solution.
+1. **OmniRoute** supplies the uninterrupted inference and token compression.
+2. **Agent Skills** sets the disciplined engineering lifecycle (`/spec` → `/plan` → `/build` → `/test`).
+3. **Graphify** grounds the agent with structural awareness so it understands cross-module relationships.
+4. **Impeccable, Taste Skill & Emil's Skills** elevate the frontend into a stunning, production-ready interface with intentional typography, calibrated dials, and physics-based motion.
+5. **Ponytail** prevents the agent from introducing bloat, ensuring that all functionality and styling are implemented with lean, native, standard-compliant code.
 
 ---
 
@@ -305,9 +374,11 @@ Using these four tools simultaneously creates an unbeatable vibe-coding workflow
 
 | Tool | Category | Dedicated Local Guide | Repository Link | Primary Strength |
 |---|---|---|---|---|
-| **Ponytail** | AI Skill / Rule | [ponytail.md](ponytail.md) | [DietrichGebert/ponytail](https://github.com/dietrichgebert/ponytail) | Slashing generated code bloat; enforcing native platform features & YAGNI |
-| **OmniRoute** | Proxy & Gateway *(Optional)* | [omniroute.md](omniroute.md) | [diegosouzapw/OmniRoute](https://github.com/diegosouzapw/OmniRoute) | Multi-provider routing, 150+ free tiers, automatic rate-limit failover |
-| **Graphify** | Knowledge Graph | [graphify.md](graphify.md) | [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) | Deep codebase understanding, AST analysis, multimodal architecture maps |
-| **Agent Skills** | Engineering Workflow | [agent-skills.md](agent-skills.md) | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | 25 production-grade SDLC skills (Spec, Plan, TDD, Review, Ship) by Addy Osmani |
-
+| **Ponytail** | AI Skill / Rule | [ponytail.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/ponytail.md) | [DietrichGebert/ponytail](https://github.com/dietrichgebert/ponytail) | Slashing generated code bloat; enforcing native platform features & YAGNI |
+| **OmniRoute** | Proxy & Gateway *(Optional)* | [omniroute.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/omniroute.md) | [diegosouzapw/OmniRoute](https://github.com/diegosouzapw/OmniRoute) | Multi-provider routing, 150+ free tiers, automatic rate-limit failover |
+| **Graphify** | Knowledge Graph | [graphify.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/graphify.md) | [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) | Deep codebase understanding, AST analysis, multimodal architecture maps |
+| **Agent Skills** | Engineering Workflow | [agent-skills.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/agent-skills.md) | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | 25 production-grade SDLC skills (Spec, Plan, TDD, Review, Ship) by Addy Osmani |
+| **Emil's Skills** | Motion & Polish | [emil-skills.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/emil-skills.md) | [emilkowalski/skills](https://github.com/emilkowalski/skills) | Cubic-bezier curves, Apple fluid motion, mobile-native bug fixes |
+| **Impeccable** | Design Quality & System | [impeccable.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/impeccable.md) | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | Product truth (PRODUCT.md), 24 UX commands, 61 zero-token quality rules |
+| **Taste Skill** | Aesthetic Art Direction | [taste-skill.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/taste-skill.md) | [leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill) | 1–10 design dials (variance/motion/density), anti-slop visual personas |
 

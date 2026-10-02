@@ -22,3 +22,15 @@ This repository is governed by the **Vibe Coding Stack** defined in `AGENTS.md`.
 - `/review` — Staff engineer 5-axis review before committing.
 - `/code-simplify` — Clean up and simplify code without breaking tests.
 - `/ship` — Final commit and shipping checklist.
+
+### 4. Design & Motion Commands (Impeccable, Taste & Emil)
+- `/impeccable init` — Gather durable product context into `PRODUCT.md`.
+- `/impeccable craft` — Interactive shape-then-build visual flow.
+- `/impeccable audit` — 61 zero-token deterministic checks for contrast, a11y, and hierarchy.
+- `/impeccable polish` — Final design system alignment and shipping pass.
+- `/impeccable bolder` / `/impeccable quieter` — Dial visual intensity up or down.
+- `/impeccable distill` — Strip visual noise down to its pure functional essence.
+- `/impeccable live` — Real-time browser element variant testing.
+- `/animate` — Build fluid, physics-based motion with decelerating curves.
+- `/review-animations` — Audit existing transitions for jank and linear easing.
+

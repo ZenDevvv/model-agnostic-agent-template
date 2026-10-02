@@ -41,15 +41,39 @@ if (Test-Path ".git") {
 }
 
 # 3. Setup Agent Skills
-Write-Host "`n3️⃣ Installing Agent Skills (Addy Osmani)..." -ForegroundColor Yellow
+Write-Host "`n3️⃣ Installing Engineering & Design Skills..." -ForegroundColor Yellow
 $npxCmd = Get-Command npx -ErrorAction SilentlyContinue
 if ($npxCmd) {
-    Write-Host "   Running: npx skills add addyosmani/agent-skills..." -ForegroundColor Gray
     try {
+        Write-Host "   Installing Addy Osmani's Agent Skills..." -ForegroundColor Gray
         npx skills add addyosmani/agent-skills
-        Write-Host "   ✅ Agent Skills installed into local agent environment." -ForegroundColor Green
+        Write-Host "   ✅ Agent Skills installed." -ForegroundColor Green
     } catch {
-        Write-Host "   ⚠️ Failed to run npx skills. You can run 'npx skills add addyosmani/agent-skills' manually." -ForegroundColor DarkYellow
+        Write-Host "   ⚠️ Agent Skills install skipped or failed." -ForegroundColor DarkYellow
+    }
+
+    try {
+        Write-Host "   Installing Taste Skill (Anti-Slop & Dials)..." -ForegroundColor Gray
+        npx skills add https://github.com/Leonxlnx/taste-skill
+        Write-Host "   ✅ Taste Skill installed." -ForegroundColor Green
+    } catch {
+        Write-Host "   ⚠️ Taste Skill install skipped." -ForegroundColor DarkYellow
+    }
+
+    try {
+        Write-Host "   Installing Emil Kowalski's Design & Motion Skills..." -ForegroundColor Gray
+        npx skills@latest add emilkowalski/skills
+        Write-Host "   ✅ Emil Kowalski Skills installed." -ForegroundColor Green
+    } catch {
+        Write-Host "   ⚠️ Emil Kowalski Skills install skipped." -ForegroundColor DarkYellow
+    }
+
+    try {
+        Write-Host "   Installing Impeccable (Design Guidance & 61 Quality Rules)..." -ForegroundColor Gray
+        npx impeccable install --scope=project
+        Write-Host "   ✅ Impeccable installed." -ForegroundColor Green
+    } catch {
+        Write-Host "   ⚠️ Impeccable install skipped. You can run 'npx impeccable install' manually." -ForegroundColor DarkYellow
     }
 } else {
     Write-Host "   ⚠️ Node.js / npx not found on PATH. Install Node.js 18+ to enable skills CLI." -ForegroundColor Red
@@ -74,8 +98,12 @@ Write-Host " • /graphify .        -> Build & inspect codebase knowledge graph"
 Write-Host " • /spec              -> Write PRD and clarify goals before coding"
 Write-Host " • /plan              -> Decompose spec into atomic, verifiable tasks"
 Write-Host " • /build auto        -> Autonomous vertical-slice TDD implementation"
-Write-Host " • /test              -> Verify with tests and browser DevTools"
+Write-Host " • /impeccable init   -> Gather product truth into PRODUCT.md"
+Write-Host " • /impeccable craft  -> Shape-then-build interactive visual flow"
+Write-Host " • /impeccable audit  -> 61 zero-token deterministic design checks"
+Write-Host " • /animate           -> Build fluid motion with decelerating curves"
 Write-Host " • /review            -> 5-axis Senior Staff quality review"
 Write-Host " • /ponytail-review   -> Strip code bloat, enforce native 1-liners"
 Write-Host " • /ship              -> Commit atomic changes and prepare release"
 Write-Host "==========================================================" -ForegroundColor Green
+

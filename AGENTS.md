@@ -4,6 +4,9 @@ This repository uses a combined **Vibe Coding Stack** integrating:
 1. **Ponytail** (Anti-Overengineering & Simplicity Ladder)
 2. **Graphify** (Multimodal Knowledge Graph & Structural Grounding)
 3. **Agent Skills** (Production-Grade SDLC Gates & TDD Discipline)
+4. **Impeccable** (Durable Product Truth, 24 Commands & Zero-Token Quality Checks)
+5. **Taste Skill** (Anti-Slop Art Direction & Adjustable Aesthetic Dials)
+6. **Emil Kowalski's Skills** (Motion Physics, Easing Curves & Mobile-Native Polish)
 
 All AI agents (Claude Code, Cursor, Codex, Antigravity CLI, Copilot, Cline, etc.) must adhere to these directives on every task.
 
@@ -81,6 +84,42 @@ Follow Addy Osmani's 6-phase engineering lifecycle for all non-trivial tasks:
 ### 6. SHIP (`/ship`)
 - Trunk-based commits with descriptive messages.
 - Treat every git commit as a safe rollback point.
+
+---
+
+## 🎨 Phase 4: Frontend Design, Anti-Slop & Motion Craft
+
+When building user interfaces, AI models default to generic templates and poor physics. Apply the combined **Design Trifecta** (`Impeccable` + `Taste Skill` + `Emil Kowalski`):
+
+### 1. Product Truth & Zero-Token Quality Checks (Impeccable)
+- **Define truth first:** Run `/impeccable init` to establish durable context in `PRODUCT.md` (audience, voice, purpose).
+- **Enforce design tokens:** Record colors, spacing, and typography scales in `DESIGN.md`.
+- **Zero-token audit:** Run `/impeccable audit` to check accessibility (WCAG AA), contrast ratios, and layout rhythm with 61 deterministic rules.
+- **Strict Anti-Patterns:**
+  - ❌ Never use generic, uninspired fonts (Inter, Arial, system defaults) without justification.
+  - ❌ Never use pure black (`#000000`) or dead neutral gray — always subtly tint neutrals with brand temperature.
+  - ❌ Never place low-contrast gray text on saturated backgrounds.
+  - ❌ Never nest cards inside cards — use whitespace and subtle dividers instead.
+
+### 2. Aesthetic Dials & Anti-Slop Art Direction (Taste Skill)
+Tune the three 1–10 dials to guide layout creativity and density:
+- **`DESIGN_VARIANCE` (1–10):** Symmetrical/clean (1–4) ──▶ Expressive, asymmetric, editorial (6–9).
+- **`MOTION_INTENSITY` (1–10):** Micro-hover only (1–3) ──▶ Scroll timelines & magnetic physics (6–8).
+- **`VISUAL_DENSITY` (1–10):** Spacious marketing layout (1–4) ──▶ High-information dashboard (7–9).
+- **Adopt an authentic visual genre:** Choose between Luxury Soft (`high-end-visual-design`), Editorial Product (`minimalist-ui`), or Swiss Technical (`industrial-brutalist-ui`).
+
+### 3. Motion Physics & Mobile-Native Polish (Emil Kowalski)
+- **Natural Easing Curves:**
+  - ❌ Never use `ease-in` for entering elements (modals, toasts, dropdowns).
+  - ✅ Always use decelerating curves on enter: `cubic-bezier(0.16, 1, 0.3, 1)` or `ease-out`.
+  - Durations: Keep interface transitions brisk (150ms–300ms max).
+- **High-Performance Motion:** Animate **only** `transform` and `opacity` to avoid triggering browser layout recalculations.
+- **Layered Shadows Over Harsh Borders:** Prefer multi-layered ambient occlusion shadows over solid 1px borders.
+- **Mobile-Native Polish:**
+  - Use `height: 100dvh` instead of `100vh` to eliminate mobile browser address bar jumps.
+  - Prevent sticky hover states on touch devices with `@media (hover: hover)`.
+  - Add safe-area padding: `padding-bottom: env(safe-area-inset-bottom)`.
+  - Ensure font-size on text inputs is at least `16px` to prevent iOS auto-zoom on focus.
 
 ---
 

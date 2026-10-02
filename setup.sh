@@ -29,11 +29,22 @@ else
     echo "   ℹ️ Not a git repo yet. Run 'git init' and 'graphify hook install' when ready."
 fi
 
-# 3. Agent Skills (Addy Osmani)
-echo -e "\n\033[1;33m3️⃣ Installing Agent Skills (Addy Osmani)...\033[0m"
+# 3. Engineering & Design Skills
+echo -e "\n\033[1;33m3️⃣ Installing Engineering & Design Skills...\033[0m"
 if command -v npx &>/dev/null; then
+    echo "   Installing Addy Osmani's Agent Skills..."
     npx skills add addyosmani/agent-skills || true
-    echo -e "\033[1;32m   ✅ Agent Skills installed.\033[0m"
+
+    echo "   Installing Taste Skill (Anti-Slop & Dials)..."
+    npx skills add https://github.com/Leonxlnx/taste-skill || true
+
+    echo "   Installing Emil Kowalski's Design & Motion Skills..."
+    npx skills@latest add emilkowalski/skills || true
+
+    echo "   Installing Impeccable (Design Guidance & 61 Quality Rules)..."
+    npx impeccable install --scope=project || true
+
+    echo -e "\033[1;32m   ✅ Engineering & Design Skills installed.\033[0m"
 else
     echo -e "\033[1;31m   ⚠️ npx not found. Please install Node.js 18+.\033[0m"
 fi
@@ -54,8 +65,12 @@ echo " • /graphify .        -> Build & inspect codebase knowledge graph"
 echo " • /spec              -> Write PRD and clarify goals before coding"
 echo " • /plan              -> Decompose spec into atomic, verifiable tasks"
 echo " • /build auto        -> Autonomous vertical-slice TDD implementation"
-echo " • /test              -> Verify with tests and browser DevTools"
+echo " • /impeccable init   -> Gather product truth into PRODUCT.md"
+echo " • /impeccable craft  -> Shape-then-build interactive visual flow"
+echo " • /impeccable audit  -> 61 zero-token deterministic design checks"
+echo " • /animate           -> Build fluid motion with decelerating curves"
 echo " • /review            -> 5-axis Senior Staff quality review"
 echo " • /ponytail-review   -> Strip code bloat, enforce native 1-liners"
 echo " • /ship              -> Commit atomic changes and prepare release"
 echo -e "\033[1;32m==========================================================\033[0m"
+
