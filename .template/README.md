@@ -160,6 +160,7 @@ my-new-project/
 │   ├── setup.sh                 # One-click macOS/Linux setup script
 │   └── README.md                # This comprehensive template manual
 ├── AGENTS.md                    # Universal agent directives (Cursor, Codex, Antigravity, etc.)
+├── app/                          # Generated application code
 ├── CLAUDE.md                    # Claude Code directives and slash commands
 ├── GEMINI.md                    # Google Gemini & Antigravity IDE directives
 ├── .gitignore                   # Configured for Node, Python, and Graphify caches
