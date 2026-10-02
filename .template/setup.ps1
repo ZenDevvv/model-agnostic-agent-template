@@ -144,16 +144,21 @@ if (Test-Path ".git") {
 # 3. Setup Agent Skills
 Write-Host "`n[3/5] Installing Engineering & Design Skills..." -ForegroundColor Yellow
 $npxCmd = Get-Command npx -ErrorAction SilentlyContinue
+$agyCmd = Get-Command agy -ErrorAction SilentlyContinue
 if ($npxCmd) {
     # Suppress interactive npm prompts
     $env:CI = "true"
 
-    try {
-        Write-Host "   Installing Addy Osmani's Agent Skills..." -ForegroundColor Gray
-        Invoke-RequiredCommand npx @('--yes', 'skills', 'add', 'addyosmani/agent-skills', '--all')
-        Write-Host "   [+] Agent Skills installed." -ForegroundColor Green
-    } catch {
-        Write-Host "   [!] Agent Skills install skipped or failed." -ForegroundColor DarkYellow
+    if ($agyCmd) {
+        Write-Host "   [i] Addy Agent Skills deferred to the Antigravity plugin (avoids duplicate installation)." -ForegroundColor DarkGray
+    } else {
+        try {
+            Write-Host "   Installing Addy Osmani's Agent Skills..." -ForegroundColor Gray
+            Invoke-RequiredCommand npx @('--yes', 'skills', 'add', 'addyosmani/agent-skills', '--all')
+            Write-Host "   [+] Agent Skills installed." -ForegroundColor Green
+        } catch {
+            Write-Host "   [!] Agent Skills install skipped or failed." -ForegroundColor DarkYellow
+        }
     }
 
     try {
@@ -199,7 +204,6 @@ if ($npxCmd) {
 
 # 4. Check for Antigravity CLI / Claude Code
 Write-Host "`n[4/5] Checking Agent Environments..." -ForegroundColor Yellow
-$agyCmd = Get-Command agy -ErrorAction SilentlyContinue
 if ($agyCmd) {
     Write-Host "   Found Antigravity CLI (agy)! Installing plugins..." -ForegroundColor Green
     try {

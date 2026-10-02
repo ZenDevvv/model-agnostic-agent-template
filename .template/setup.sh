@@ -115,14 +115,22 @@ fi
 
 # 3. Engineering & Design Skills
 echo -e "\n\033[1;33m3️⃣ Installing Engineering & Design Skills...\033[0m"
+AGY_AVAILABLE=false
+if command -v agy &>/dev/null; then
+    AGY_AVAILABLE=true
+fi
 if command -v npx &>/dev/null; then
     export CI=true
 
-    echo "   Installing Addy Osmani's Agent Skills..."
-    if npx --yes skills add addyosmani/agent-skills --all; then
-        echo "   Agent Skills installed."
+    if [[ "$AGY_AVAILABLE" == true ]]; then
+        echo "   Addy Agent Skills deferred to the Antigravity plugin (avoids duplicate installation)."
     else
-        echo "   Agent Skills installation failed; continuing." >&2
+        echo "   Installing Addy Osmani's Agent Skills..."
+        if npx --yes skills add addyosmani/agent-skills --all; then
+            echo "   Agent Skills installed."
+        else
+            echo "   Agent Skills installation failed; continuing." >&2
+        fi
     fi
 
     if [[ "$INSTALL_TASTE" == true ]]; then
@@ -154,7 +162,7 @@ fi
 
 # 4. Agent Environments
 echo -e "\n\033[1;33m4️⃣ Checking Agent Environments...\033[0m"
-if command -v agy &>/dev/null; then
+if [[ "$AGY_AVAILABLE" == true ]]; then
     echo "   Found Antigravity CLI (agy)! Installing plugins..."
     agy plugin install https://github.com/DietrichGebert/ponytail --silent || echo "   Ponytail plugin installation failed; continuing." >&2
     agy plugin install https://github.com/addyosmani/agent-skills.git --silent || echo "   Agent Skills plugin installation failed; continuing." >&2
