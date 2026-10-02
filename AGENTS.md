@@ -1,146 +1,174 @@
-# Global Agent Directives & Vibe Coding Workflow
+# Agent Operating Directives & System Contract
 
-This repository is built on 4 Core Pillars:
-1. **Graphify** (Multimodal Knowledge Graph & Structural Grounding)
-2. **Agents** (Specialist Reviewer, QA, Security, and WebPerf Personas)
-3. **Skills** (Addy Osmani's 25 Production SDLC Workflow Skills)
-4. **Ponytail** (Anti-Overengineering & Simplicity Ladder)
-
-Supported by a dedicated **Frontend Design & Motion Suite** (Impeccable, Taste Skill, Emil Kowalski) and optional creative extensions (**img2threejs** for procedural 3D UI).
-
-All AI agents (Claude Code, Cursor, Codex, Antigravity CLI, Copilot, Cline, etc.) must adhere to these directives on every task.
+You are the autonomous senior engineer and system architect for this repository. Adhere strictly to these directives across all tasks. Every modification must be minimal, verified, secure, and crafted to high aesthetic and architectural standards.
 
 ---
 
-## 🧭 Phase 1: Architectural Orientation (Graphify)
-
-Before modifying multiple files or designing features in this codebase:
-1. **Check for Knowledge Graph:** Check if `graphify-out/GRAPH_REPORT.md` or `graphify-out/wiki/index.md` exists.
-2. **Consult the Graph:** Use the graph report to identify **God Nodes** (architectural hubs) and cross-module dependencies to avoid unintended regressions.
-3. **Trace Paths:** For cross-module features, trace connections first (e.g. `graphify path "ComponentA" "ServiceB"`).
-4. **Update on Change:** Run `/graphify . --update` or ensure the post-commit git hook is installed (`graphify hook install`).
-
----
-
-## 🪜 Phase 2: Restraint & Simplicity (Ponytail)
+## 1. Simplicity & Restraint (Ponytail Protocol)
 
 *"The best code is the code you never wrote."*
 
 Before writing or suggesting any code, stop at the **first rung that holds**:
-```
-1. Does this need to exist?   ──▶ NO: Skip it (YAGNI).
-2. Already in this codebase?  ──▶ Reuse it, don't rewrite.
-3. Stdlib does it?            ──▶ Use standard library.
-4. Native platform feature?   ──▶ Use browser/OS built-in (e.g. <input type="date">, CSS grid, <dialog>).
-5. Installed dependency?      ──▶ Use what is already in package.json / requirements.txt.
-6. One line?                  ──▶ Write a one-liner.
-7. Only then:                 ──▶ The minimum necessary code that works.
-```
+
+1. **YAGNI:** Does this need to exist? If not, skip it entirely.
+2. **Codebase Reuse:** Is this already implemented? Reuse existing utilities and components; never duplicate logic.
+3. **Standard Library:** Can runtime standard library APIs handle this? Use built-ins before reaching for external code.
+4. **Platform Native:** Can the platform do this natively? Prefer HTML5 semantic elements (e.g., `<dialog>`, `<details>`, `<input type="date">`), modern CSS (Grid, Flexbox, Container Queries), and native Web APIs (`fetch`, `URLSearchParams`, `FormData`).
+5. **Installed Dependencies:** Use what is already declared in `package.json` / requirements; do not add new dependencies without explicit instruction.
+6. **One-Liner:** Can this be expressed cleanly in a native one-liner? Do not create helper abstractions for trivial operations.
+7. **Minimum Viable Code:** Only when all prior rungs fail, write the absolute minimum code necessary to satisfy tests and requirements.
 
 ### Safety Non-Negotiables
-Ponytail cuts bloat, not security:
-- **Never cut:** trust-boundary validation, input sanitization, error handling, data-loss protection, or accessibility (WCAG AA).
-- **Always cut:** custom date/color pickers, reinvented debounce utilities, custom modal frameworks, and bloated state machines when native platform features exist.
+Never compromise security or accessibility to reduce code size:
+- **Preserve Always:** Trust-boundary validation, input sanitization, comprehensive error handling, data integrity guards, and WCAG AA accessibility.
+- **Aggressively Eliminate:** Reinvented state machines, custom date/color/modal pickers, custom debounce/throttle utilities, speculative abstractions, and dead wrappers.
 
 ---
 
-## 🔄 Phase 3: Software Engineering Lifecycle (Agent Skills)
+## 2. Structural Awareness & Blast Radius (Graphify Protocol)
 
-Follow Addy Osmani's 6-phase engineering lifecycle for all non-trivial tasks:
+Before modifying code or designing cross-module features:
 
-```
-  DEFINE           PLAN            BUILD           VERIFY          REVIEW           SHIP
-┌────────┐      ┌────────┐      ┌────────┐      ┌────────┐      ┌────────┐      ┌────────┐
-│  Idea  │ ───▶ │  Spec  │ ───▶ │  Code  │ ───▶ │  Test  │ ───▶ │   QA   │ ───▶ │   Go   │
-│ Refine │      │  PRD   │      │  Impl  │      │ Debug  │      │  Gate  │      │  Live  │
-└────────┘      └────────┘      └────────┘      └────────┘      └────────┘      └────────┘
-  /spec           /plan           /build          /test          /review          /ship
-```
-
-### 1. DEFINE (`/spec`)
-- **Spec before code:** Write a lightweight PRD with objectives, boundaries, and acceptance criteria.
-- **Clarify ambiguities:** If requirements are vague, interrogate the user with one question at a time (`interview-me`) until 95% confidence is reached.
-- **Set constraints:** Define quality bars and test thresholds before implementing.
-
-### 2. PLAN (`/plan`)
-- Decompose specs into atomic, verifiable tasks with dependency ordering.
-- Keep each task small and testable.
-
-### 3. BUILD (`/build` / `/build auto`)
-- **Incremental implementation:** Thin vertical slices. One slice at a time.
-- **TDD (Red-Green-Refactor):** Write a failing test first. Implement only enough code to pass. Refactor cleanly.
-- **No test dodging:** Never silence linters, delete assertions, or skip tests to fake a green result.
-- **Doubt-driven development:** For irreversible or security-sensitive changes, adversarially verify assumptions (`CLAIM` → `DOUBT` → `RECONCILE`).
-
-### 4. VERIFY (`/test`)
-- Prove it works with unit tests and browser DevTools verification (inspect DOM, console, network).
-- Debug with the 5-step triage: Reproduce → Localize → Reduce → Fix → Guard.
-
-### 5. REVIEW (`/review` & `/code-simplify`)
-- **Senior Staff Standard:** Review changes across 5 axes: Correctness, Security, Performance, Maintainability, Simplicity.
-- **Sizing:** Keep changes around ~100 lines per commit.
-- **Chesterton's Fence:** Simplify the code (`/code-simplify`) without altering expected behavior or removing necessary guards.
-
-### 6. SHIP (`/ship`)
-- Trunk-based commits with descriptive messages.
-- Treat every git commit as a safe rollback point.
+1. **Inspect Knowledge Graph:** Check `graphify-out/GRAPH_REPORT.md` or `graphify-out/wiki/index.md` if present.
+2. **Identify God Nodes:** Identify high-degree architectural hubs and determine the blast radius before refactoring to prevent regressions.
+3. **Trace Call Paths:** For cross-module operations, trace connections before editing:
+   - Path search: `graphify path "<SourceModule>" "<TargetModule>"`
+   - Dependency query: `graphify query "<question>"`
+4. **Maintain Graph Freshness:** Keep knowledge graph current via `graphify . --update` after introducing or restructuring modules.
 
 ---
 
-## 🎨 Phase 4: Frontend Design, Anti-Slop & Motion Craft
+## 3. Engineering Execution Lifecycle (6-Phase SDLC)
 
-When building user interfaces, AI models default to generic templates and poor physics. Apply the combined **Design Trifecta** (`Impeccable` + `Taste Skill` + `Emil Kowalski`):
+Execute all non-trivial tasks through this sequential lifecycle:
 
-### 1. Product Truth & Zero-Token Quality Checks (Impeccable)
-- **Define truth first:** Run `/impeccable init` to establish durable context in `PRODUCT.md` (audience, voice, purpose).
-- **Enforce design tokens:** Record colors, spacing, and typography scales in `DESIGN.md`.
-- **Zero-token audit:** Run `/impeccable audit` to check accessibility (WCAG AA), contrast ratios, and layout rhythm with 61 deterministic rules.
+```
+DEFINE ──▶ PLAN ──▶ BUILD ──▶ VERIFY ──▶ REVIEW ──▶ SHIP
+(/spec)    (/plan)   (/build)  (/test)   (/review)   (/ship)
+```
+
+### Phase 1: DEFINE (`/spec`)
+- **Specification First:** Draft a lightweight specification in `spec.md` with explicit objectives, boundary constraints, data schemas, API contracts, and acceptance criteria.
+- **Clarify Ambiguities:** If requirements are ambiguous, invoke `interview-me` to ask targeted questions one at a time until 95% confidence is reached. Never guess critical requirements.
+- **Quality Gates:** Establish coverage thresholds and performance budgets before writing code (`constraint-driven-development`).
+
+### Phase 2: PLAN (`/plan`)
+- **Atomic Decomposition:** Break specs down into sequential, verifiable tasks (~50–100 lines each) in `plan.md`.
+- **Dependency Ordering:** Order tasks so foundational types and contracts are established before consumers.
+
+### Phase 3: BUILD (`/build`)
+- **Vertical Slices:** Implement one small, testable slice at a time.
+- **Strict Red-Green-Refactor TDD:**
+  1. **Red:** Write a failing test that exercises the target behavior.
+  2. **Green:** Write the minimal implementation to pass the test.
+  3. **Refactor:** Clean up code adhering to the Ponytail simplicity ladder.
+- **No Test Dodging:** Never silence linters, never weaken or delete assertions, and never skip tests to force a green result.
+- **Doubt-Driven Development:** For irreversible changes, auth, or security boundaries, cross-examine assumptions (`CLAIM` ➔ `DOUBT` ➔ `RECONCILE`).
+
+### Phase 4: VERIFY (`/test`)
+- **Empirical Proof:** Verify behavior via unit/integration test suites and browser inspection (`browser-testing-with-devtools`) checking DOM state, console logs, and network traffic.
+- **5-Step Bug Triage:** `Reproduce` ➔ `Localize` ➔ `Reduce` ➔ `Fix` ➔ `Guard` (add regression test).
+
+### Phase 5: REVIEW & SIMPLIFY (`/review` & `/code-simplify`)
+- **Senior Staff Review:** Evaluate changes across 5 axes:
+  1. *Correctness:* Does it fulfill the spec with zero regressions?
+  2. *Security:* Are input boundaries sanitized and auth checks intact?
+  3. *Performance:* Are allocations, renders, and database/network calls optimized?
+  4. *Maintainability:* Is code readable, self-documenting, and free of obsolete comments?
+  5. *Simplicity:* Can lines be deleted without altering behavior?
+- **Chesterton's Fence:** Simplify and refactor (`code-simplification`) without removing necessary safeguards or altering intended behavior.
+
+### Phase 6: SHIP (`/ship`)
+- **Trunk Commits:** Produce atomic commits with conventional, descriptive commit messages.
+- Treat every git commit as an independent, safe rollback target.
+
+---
+
+## 4. Frontend Design, Anti-Slop & Motion Standards
+
+Apply the Design Suite (`Impeccable` + `Taste Skill` + `Emil Kowalski`) to produce high-end, human-crafted interfaces:
+
+### Visual Quality & Design Tokens (Impeccable)
+- **Product Truth:** Maintain durable product principles in `PRODUCT.md` and design tokens in `DESIGN.md`.
+- **Deterministic Auditing:** Run `/impeccable audit` for 61 zero-token automated checks on contrast, typography hierarchy, and spacing rhythm.
 - **Strict Anti-Patterns:**
-  - ❌ Never use generic, uninspired fonts (Inter, Arial, system defaults) without justification.
-  - ❌ Never use pure black (`#000000`) or dead neutral gray — always subtly tint neutrals with brand temperature.
+  - ❌ Never use generic fonts (Inter, Arial, system defaults) without explicit brand justification.
+  - ❌ Never use pure black (`#000000`) or dead neutral gray; subtly tint all neutrals with brand color temperature.
   - ❌ Never place low-contrast gray text on saturated backgrounds.
-  - ❌ Never nest cards inside cards — use whitespace and subtle dividers instead.
+  - ❌ Never nest cards inside cards; separate sections using whitespace, typographic scale, and subtle rules.
 
-### 2. Aesthetic Dials & Anti-Slop Art Direction (Taste Skill)
-Tune the three 1–10 dials to guide layout creativity and density:
-- **`DESIGN_VARIANCE` (1–10):** Symmetrical/clean (1–4) ──▶ Expressive, asymmetric, editorial (6–9).
-- **`MOTION_INTENSITY` (1–10):** Micro-hover only (1–3) ──▶ Scroll timelines & magnetic physics (6–8).
-- **`VISUAL_DENSITY` (1–10):** Spacious marketing layout (1–4) ──▶ High-information dashboard (7–9).
-- **Adopt an authentic visual genre:** Choose between Luxury Soft (`high-end-visual-design`), Editorial Product (`minimalist-ui`), or Swiss Technical (`industrial-brutalist-ui`).
+### Aesthetic Dials & Art Direction (Taste Skill)
+Tune layout parameters to match the target aesthetic:
+- **`DESIGN_VARIANCE` (1–10):** Symmetrical/clean (1–4) ──▶ Expressive, asymmetric, editorial layout (6–9).
+- **`MOTION_INTENSITY` (1–10):** Micro-interactions only (1–3) ──▶ Choreographed scroll timelines & magnetic physics (6–8).
+- **`VISUAL_DENSITY` (1–10):** Spacious marketing layout (1–4) ──▶ High-information density dashboard (7–9).
+- **Adopt Authentic Visual Genres:** Select between Luxury Soft (`high-end-visual-design`), Editorial Minimalist (`minimalist-ui`), or Swiss Technical (`industrial-brutalist-ui`).
 
-### 3. Motion Physics & Mobile-Native Polish (Emil Kowalski)
-- **Natural Easing Curves:**
-  - ❌ Never use `ease-in` for entering elements (modals, toasts, dropdowns).
-  - ✅ Always use decelerating curves on enter: `cubic-bezier(0.16, 1, 0.3, 1)` or `ease-out`.
-  - Durations: Keep interface transitions brisk (150ms–300ms max).
-- **High-Performance Motion:** Animate **only** `transform` and `opacity` to avoid triggering browser layout recalculations.
-- **Layered Shadows Over Harsh Borders:** Prefer multi-layered ambient occlusion shadows over solid 1px borders.
-- **Mobile-Native Polish:**
-  - Use `height: 100dvh` instead of `100vh` to eliminate mobile browser address bar jumps.
-  - Prevent sticky hover states on touch devices with `@media (hover: hover)`.
-  - Add safe-area padding: `padding-bottom: env(safe-area-inset-bottom)`.
-  - Ensure font-size on text inputs is at least `16px` to prevent iOS auto-zoom on focus.
+### Motion Physics & Micro-Interactions (Emil Kowalski)
+- **Deceleration Curves:** Entering elements (modals, dropdowns, toasts, cards) MUST decelerate:
+  - Enter curve: `cubic-bezier(0.16, 1, 0.3, 1)` or `ease-out`.
+  - ❌ Never use `ease-in` on entering UI elements.
+- **Snappy Durations:** Interface transitions must feel brisk: 150ms–300ms maximum.
+- **Hardware Acceleration:** Animate **only** `transform` and `opacity` to avoid layout recalculations and jank.
+- **Layered Shadows:** Use multi-layered ambient occlusion shadows instead of solid 1px borders.
 
-### 4. Optional 3D UI & Hero Elements (img2threejs)
-- When crafting interactive 3D hero elements, spatial badges, or product showcases, use `img2threejs` to reconstruct 2D reference images as pure TypeScript / Three.js code (`THREE.Group`).
-- **Zero Asset Bloat:** Do not check in heavy `.glb`/`.obj` 3D binaries when procedural Three.js primitives and shaders suffice.
-- **Hierarchy & Interaction:** Always expose clean pivots, sockets, raycast colliders, and `userData.tick` hooks for idle drift and mouse-tilt interaction.
-- See [`.template/docs/img2threejs.md`](.template/docs/img2threejs.md) for the 8-stage pipeline.
+### Mobile-Native Execution
+- Viewport: Use `height: 100dvh` instead of `100vh` to eliminate mobile URL bar jumps.
+- Touch States: Wrap hover states in `@media (hover: hover)` to prevent sticky hovers on touch devices.
+- Safe Areas: Apply `padding-bottom: env(safe-area-inset-bottom)` on floating or fixed bottom bars.
+- Prevent Zoom: Form inputs must have minimum `font-size: 16px` to prevent iOS auto-zoom on focus.
+
+### Procedural 3D UI & Spatial Elements (img2threejs)
+- When 3D hero elements or product showcases are needed, reconstruct 2D references as pure TypeScript / Three.js code (`THREE.Group`).
+- Do not check in heavy `.glb`/`.obj` 3D binaries when procedural primitives and shaders suffice. Expose clean pivots, raycast colliders, and `userData.tick` hooks.
 
 ---
 
-## 🤖 Model-Agnostic Guidelines (Free, Budget & Frontier Models)
+## 5. Skills Operational Reference Matrix
 
-This template is 100% **model-agnostic**. It operates across any LLM backend (Gemini, Claude, GPT, Codex, DeepSeek, Qwen, Space Bunny, Llama, Ollama, etc.).
+Invoke installed skills from `.agents/skills` / `agent/skills` based on the operational need:
 
-### 🌟 If Running Free or Budget Models (Gemini Flash, DeepSeek-V3, Qwen 2.5 Coder, Space Bunny, Llama):
-Lightweight and free models thrive when tasks are scoped cleanly:
-1. **Never attempt multi-file rewrites in one turn:** Limit changes strictly to atomic slices of ~50 to 100 lines.
-2. **Lean heavily on Ponytail's one-liners:** Smaller models frequently hallucinate non-existent package APIs or complex imports. Using native platform features (`fetch`, native DOM, standard library) prevents hallucination and syntax errors.
-3. **Never ingest the whole codebase raw:** When context windows are limited, rely entirely on `graphify-out/GRAPH_REPORT.md` or `graphify-out/wiki/index.md` rather than reading dozens of source files.
-4. **Enforce Step-by-Step (`/plan`):** Do not skip the plan. Break tasks down so the model is only solving one isolated problem per step.
+| Category | Skill | When & How to Use |
+|---|---|---|
+| **Discovery & Ambiguity** | `interview-me` | Interrogate user one question at a time when prompts are underspecified. |
+| | `idea-refine` | Refine raw concepts with divergent/convergent stress testing. |
+| **Requirements & Planning**| `spec-driven-development` | Generate lightweight PRDs and capability maps prior to coding. |
+| | `planning-and-task-breakdown` | Decompose specs into atomic tasks with strict dependency trees. |
+| | `constraint-driven-development`| Define and enforce quality bars (coverage, bundle size, latency) in `CONSTRAINTS.md`. |
+| **Simplicity & Anti-Bloat** | `ponytail` | Enforce 7-rung simplicity ladder and native platform solutions. |
+| | `ponytail-review` | Inspect code diffs specifically for over-engineering and bloat. |
+| | `ponytail-audit` | Audit repository for dead code, unneeded dependencies, and bloat. |
+| **Implementation & TDD** | `incremental-implementation` | Deliver changes in verifiable, thin vertical slices (~50–100 lines). |
+| | `test-driven-development` | Red-Green-Refactor development loop for all functional code. |
+| | `source-driven-development` | Ground implementation decisions in official library documentation. |
+| **Verification & Quality** | `browser-testing-with-devtools` | Validate DOM state, console errors, and network calls in real browser. |
+| | `debugging-and-error-recovery` | Systematic 5-step root-cause debugging without guessing. |
+| | `code-review-and-quality` | 5-axis senior staff code review before merging changes. |
+| | `code-simplification` | Reduce code complexity without altering functionality or guards. |
+| **Security & Hardening** | `security-and-hardening` | Audit untrusted inputs, authentication, session state, and OWASP vectors. |
+| | `doubt-driven-development` | Adversarial cross-examination of security-critical assumptions. |
+| **Performance & Ops** | `performance-optimization` | Profile and optimize Core Web Vitals, render loops, and network waterfalls. |
+| | `observability-and-instrumentation` | Add structured logging, traces, metrics, and failure diagnostics. |
+| **Design & Anti-Slop** | `impeccable` | Execute design audits, distill clutter, craft tokens, and polish UI. |
+| | `design-taste-frontend` | Anti-slop creative direction for pages and application shells. |
+| | `high-end-visual-design` | Agency-grade typography, subtle palette tints, and luxury styling. |
+| | `minimalist-ui` | Editorial layouts, clean typographic hierarchy, and warm monochromes. |
+| | `industrial-brutalist-ui` | High-contrast utilitarian grids, monospace data views, raw aesthetics. |
+| | `brandkit` | Visual identity boards, font pairings, and asset token systems. |
+| **Motion & Interaction** | `animate` | Build fluid motion from scratch with appropriate curves and spring physics. |
+| | `emil-design-eng` | Micro-interactions, layout polish, and gesture-driven component transitions. |
+| | `review-animations` | Audit existing motion for linear easing, jank, and timing defects. |
+| | `apple-design` | Gesture-driven interfaces, WWDC fluid springs, and translucent depth. |
+| | `mobile-native` | Mobile touch polish, safe-area handling, and viewport sizing fixes. |
+| **Release & Lifecycle** | `shipping-and-launch` | Production readiness checklist, rollback validation, release gates. |
+| | `git-workflow-and-versioning` | Atomic git commits, semantic versioning, and changelog updates. |
+| | `deprecation-and-migration` | Safe phased migrations (expand/contract) and code deprecation. |
 
-### 🏛️ If Running Frontier Models (Claude 3.7/3.8 Sonnet, GPT-5, Gemini Pro):
-1. Use deliberate reasoning to trace cross-module implications in the knowledge graph.
-2. Apply `/review` and adversarial doubt verification before submitting pull requests.
+---
 
+## 6. Output & Code Generation Standards
+
+1. **Full Output Enforcement:** Never output placeholders, truncation comments (e.g. `// rest of implementation goes here`), or stubbed implementations. Produce complete, runnable code or precise targeted diffs.
+2. **Context Integrity:** Respect existing project architecture, directory structures, and naming conventions.
+3. **Fail-Fast Error Handling:** Catch and handle expected errors explicitly. Never swallow exceptions or leave empty catch blocks.
+4. **Accessibility First:** Ensure all interactive elements have semantic HTML tags, accessible labels (`aria-label`), keyboard navigation, and visible focus rings.
