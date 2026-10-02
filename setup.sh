@@ -29,14 +29,10 @@ if [[ "$origin_url" == *"model-agnostic-agent-template"* && "$1" != "--keep-orig
     echo -e "\033[1;36m   Disconnecting from template and initializing fresh Git repository for your project...\033[0m"
     rm -rf .git
     (git init -b main >/dev/null 2>&1 || git init >/dev/null 2>&1)
-    git add .
-    git commit -m "feat: initial project setup from vibe coding template" --quiet || true
     echo -e "\033[1;32m   ✅ Initialized fresh, detached Git repository (main).\033[0m"
 elif [ ! -d ".git" ]; then
     echo -e "\033[1;36m   Initializing fresh Git repository for your project...\033[0m"
     (git init -b main >/dev/null 2>&1 || git init >/dev/null 2>&1)
-    git add .
-    git commit -m "feat: initial project setup from vibe coding template" --quiet || true
     echo -e "\033[1;32m   ✅ Initialized fresh Git repository (main).\033[0m"
 fi
 
@@ -71,6 +67,14 @@ if command -v agy &>/dev/null; then
     echo "   Found Antigravity CLI (agy)! Installing plugins..."
     agy plugin install https://github.com/DietrichGebert/ponytail || true
     agy plugin install https://github.com/addyosmani/agent-skills.git || true
+fi
+
+# 5. Finalize Git Repository
+echo -e "\n\033[1;33m5️⃣ Finalizing Git Baseline...\033[0m"
+if [ -d ".git" ]; then
+    git add .
+    git commit -m "feat: initial project setup with agent skills and tools" --quiet || true
+    echo -e "\033[1;32m   ✅ Initial stack and agent skills committed to Git.\033[0m"
 fi
 
 echo -e "\n\033[1;32m==========================================================\033[0m"

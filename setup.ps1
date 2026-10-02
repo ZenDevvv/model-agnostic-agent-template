@@ -45,8 +45,6 @@ if ($originUrl -like "*model-agnostic-agent-template*" -and -not $KeepOrigin) {
             Remove-Item -Path ".git" -Recurse -Force
         }
         git init -b main | Out-Null
-        git add .
-        git commit -m "feat: initial project setup from vibe coding template" --quiet
         Write-Host "   ✅ Initialized fresh, detached Git repository (main)." -ForegroundColor Green
     } catch {
         Write-Host "   ⚠️ Could not reset .git automatically: $_" -ForegroundColor DarkYellow
@@ -55,8 +53,6 @@ if ($originUrl -like "*model-agnostic-agent-template*" -and -not $KeepOrigin) {
     Write-Host "   Initializing fresh Git repository for your project..." -ForegroundColor Cyan
     try {
         git init -b main | Out-Null
-        git add .
-        git commit -m "feat: initial project setup from vibe coding template" --quiet
         Write-Host "   ✅ Initialized fresh Git repository (main)." -ForegroundColor Green
     } catch {
         Write-Host "   ℹ️ Note: Install Git to enable version control." -ForegroundColor Gray
@@ -119,6 +115,18 @@ if ($agyCmd) {
     agy plugin install https://github.com/DietrichGebert/ponytail --silent
     agy plugin install https://github.com/addyosmani/agent-skills.git --silent
     Write-Host "   ✅ Antigravity CLI plugins installed." -ForegroundColor Green
+}
+
+# 5. Finalize Git Repository
+Write-Host "`n5️⃣ Finalizing Git Baseline..." -ForegroundColor Yellow
+if (Test-Path ".git") {
+    try {
+        git add .
+        git commit -m "feat: initial project setup with agent skills and tools" --quiet
+        Write-Host "   ✅ Staged and committed initial stack to Git." -ForegroundColor Green
+    } catch {
+        Write-Host "   ℹ️ Note: Nothing to commit or git error: $_" -ForegroundColor Gray
+    }
 }
 
 Write-Host ""
