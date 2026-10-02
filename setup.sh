@@ -14,7 +14,7 @@ echo -e "\033[1;33m1️⃣ Checking Python & Graphify...\033[0m"
 if command -v python3 &>/dev/null; then
     echo "Found Python: $(python3 --version)"
     pip3 install --quiet --upgrade graphifyy || pip install --quiet --upgrade graphifyy
-    graphify install || true
+    python3 -m graphify install || graphify install || true
     echo -e "\033[1;32m   ✅ Graphify installed.\033[0m"
 else
     echo -e "\033[1;31m   ⚠️ python3 not found. Please install Python 3.10+.\033[0m"
@@ -37,25 +37,28 @@ elif [ ! -d ".git" ]; then
 fi
 
 if [ -d ".git" ]; then
-    graphify hook install || true
+    python3 -m graphify hook install 2>/dev/null || graphify hook install 2>/dev/null || true
     echo -e "\033[1;32m   ✅ Installed Graphify post-commit hook.\033[0m"
 fi
 
 # 3. Engineering & Design Skills
 echo -e "\n\033[1;33m3️⃣ Installing Engineering & Design Skills...\033[0m"
 if command -v npx &>/dev/null; then
+    export CI=true
+
     echo "   Installing Addy Osmani's Agent Skills..."
-    npx skills add addyosmani/agent-skills || true
+    npx --yes skills add addyosmani/agent-skills --all || true
 
     echo "   Installing Taste Skill (Anti-Slop & Dials)..."
-    npx skills add https://github.com/Leonxlnx/taste-skill || true
+    npx --yes skills add https://github.com/Leonxlnx/taste-skill --all || true
 
     echo "   Installing Emil Kowalski's Design & Motion Skills..."
-    npx skills@latest add emilkowalski/skills || true
+    npx --yes skills@latest add emilkowalski/skills --all || true
 
     echo "   Installing Impeccable (Design Guidance & 61 Quality Rules)..."
-    npx impeccable install --scope=project || true
+    npx --yes impeccable install --yes --scope=project || true
 
+    unset CI
     echo -e "\033[1;32m   ✅ Engineering & Design Skills installed.\033[0m"
 else
     echo -e "\033[1;31m   ⚠️ npx not found. Please install Node.js 18+.\033[0m"
@@ -65,8 +68,8 @@ fi
 echo -e "\n\033[1;33m4️⃣ Checking Agent Environments...\033[0m"
 if command -v agy &>/dev/null; then
     echo "   Found Antigravity CLI (agy)! Installing plugins..."
-    agy plugin install https://github.com/DietrichGebert/ponytail || true
-    agy plugin install https://github.com/addyosmani/agent-skills.git || true
+    agy plugin install https://github.com/DietrichGebert/ponytail --silent || true
+    agy plugin install https://github.com/addyosmani/agent-skills.git --silent || true
 fi
 
 # 5. Finalize Git Repository
@@ -80,17 +83,17 @@ fi
 echo -e "\n\033[1;32m==========================================================\033[0m"
 echo -e "\033[1;32m   🎉 Vibe Coding Stack Ready!                           \033[0m"
 echo -e "\033[1;32m==========================================================\033[0m"
-echo "Available workflows:"
-echo " • /graphify .        -> Build & inspect codebase knowledge graph"
-echo " • /spec              -> Write PRD and clarify goals before coding"
-echo " • /plan              -> Decompose spec into atomic, verifiable tasks"
-echo " • /build auto        -> Autonomous vertical-slice TDD implementation"
-echo " • /impeccable init   -> Gather product truth into PRODUCT.md"
-echo " • /impeccable craft  -> Shape-then-build interactive visual flow"
-echo " • /impeccable audit  -> 61 zero-token deterministic design checks"
-echo " • /animate           -> Build fluid motion with decelerating curves"
-echo " • /review            -> 5-axis Senior Staff quality review"
-echo " • /ponytail-review   -> Strip code bloat, enforce native 1-liners"
-echo " • /ship              -> Commit atomic changes and prepare release"
+echo ""
+echo -e "\033[1;36m👉 WHAT TO DO NEXT (No terminal commands needed!):\033[0m"
+echo "   1. Open your AI coding assistant (Antigravity / Cursor / Claude)."
+echo "   2. In the AI chat, simply describe what you want to build:"
+echo -e "\033[1;33m      Example: 'I want to build a modern personal portfolio.'\033[0m"
+echo ""
+echo "   The AI will automatically handle planning, design, and"
+echo "   code quality in the background."
+echo ""
+echo -e "\033[0;90m💡 Optional shortcuts for advanced users:\033[0m"
+echo -e "\033[0;90m   /spec   -> Write a PRD before writing code\033[0m"
+echo -e "\033[0;90m   /plan   -> Break tasks into small verifiable steps\033[0m"
+echo -e "\033[0;90m   /review -> Senior Staff quality review\033[0m"
 echo -e "\033[1;32m==========================================================\033[0m"
-

@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
   One-Click Vibe Coding Stack Setup Script (Windows PowerShell)
   Installs & Configures: Ponytail, Graphify, and Addy Osmani's Agent Skills.
@@ -20,6 +20,14 @@ Write-Host "[1/5] Checking Python & Graphify..." -ForegroundColor Yellow
 $pythonCmd = Get-Command python -ErrorAction SilentlyContinue
 if ($pythonCmd) {
     Write-Host "   Found Python: $($pythonCmd.Source)" -ForegroundColor Green
+    # Add Python Scripts folder to current session PATH so CLI tools are discoverable
+    try {
+        $pyScripts = python -c "import sysconfig; print(sysconfig.get_path('scripts'))" 2>$null
+        if ($pyScripts -and (Test-Path $pyScripts)) {
+            $env:PATH = "$pyScripts;$env:PATH"
+        }
+    } catch {}
+
     try {
         Write-Host "   Installing/Updating graphifyy via pip..." -ForegroundColor Gray
         python -m pip install --quiet --upgrade graphifyy
@@ -45,6 +53,8 @@ if ($originUrl -like "*model-agnostic-agent-template*" -and -not $KeepOrigin) {
             Remove-Item -Path ".git" -Recurse -Force
         }
         git init -b main | Out-Null
+        git config core.autocrlf true
+        git config core.safecrlf false
         Write-Host "   [+] Initialized fresh, detached Git repository (main)." -ForegroundColor Green
     } catch {
         Write-Host "   [!] Could not reset .git automatically: $_" -ForegroundColor DarkYellow
@@ -53,18 +63,28 @@ if ($originUrl -like "*model-agnostic-agent-template*" -and -not $KeepOrigin) {
     Write-Host "   Initializing fresh Git repository for your project..." -ForegroundColor Cyan
     try {
         git init -b main | Out-Null
+        git config core.autocrlf true
+        git config core.safecrlf false
         Write-Host "   [+] Initialized fresh Git repository (main)." -ForegroundColor Green
     } catch {
         Write-Host "   [i] Note: Install Git to enable version control." -ForegroundColor Gray
     }
+} else {
+    git config core.autocrlf true 2>$null
+    git config core.safecrlf false 2>$null
 }
 
 if (Test-Path ".git") {
     try {
-        graphify hook install
+        python -m graphify hook install 2>$null
         Write-Host "   [+] Installed Graphify post-commit hook." -ForegroundColor Green
     } catch {
-        Write-Host "   [i] Note: Run 'graphify hook install' once graphify is on your PATH." -ForegroundColor Gray
+        try {
+            graphify hook install 2>$null
+            Write-Host "   [+] Installed Graphify post-commit hook." -ForegroundColor Green
+        } catch {
+            Write-Host "   [i] Graphify hook will be available after restarting terminal." -ForegroundColor Gray
+        }
     }
 }
 
@@ -72,9 +92,12 @@ if (Test-Path ".git") {
 Write-Host "`n[3/5] Installing Engineering & Design Skills..." -ForegroundColor Yellow
 $npxCmd = Get-Command npx -ErrorAction SilentlyContinue
 if ($npxCmd) {
+    # Suppress interactive npm prompts
+    $env:CI = "true"
+
     try {
         Write-Host "   Installing Addy Osmani's Agent Skills..." -ForegroundColor Gray
-        npx skills add addyosmani/agent-skills
+        npx --yes skills add addyosmani/agent-skills --all
         Write-Host "   [+] Agent Skills installed." -ForegroundColor Green
     } catch {
         Write-Host "   [!] Agent Skills install skipped or failed." -ForegroundColor DarkYellow
@@ -82,7 +105,7 @@ if ($npxCmd) {
 
     try {
         Write-Host "   Installing Taste Skill (Anti-Slop & Dials)..." -ForegroundColor Gray
-        npx skills add https://github.com/Leonxlnx/taste-skill
+        npx --yes skills add https://github.com/Leonxlnx/taste-skill --all
         Write-Host "   [+] Taste Skill installed." -ForegroundColor Green
     } catch {
         Write-Host "   [!] Taste Skill install skipped." -ForegroundColor DarkYellow
@@ -90,7 +113,7 @@ if ($npxCmd) {
 
     try {
         Write-Host "   Installing Emil Kowalski's Design & Motion Skills..." -ForegroundColor Gray
-        npx skills@latest add emilkowalski/skills
+        npx --yes skills@latest add emilkowalski/skills --all
         Write-Host "   [+] Emil Kowalski Skills installed." -ForegroundColor Green
     } catch {
         Write-Host "   [!] Emil Kowalski Skills install skipped." -ForegroundColor DarkYellow
@@ -98,11 +121,13 @@ if ($npxCmd) {
 
     try {
         Write-Host "   Installing Impeccable (Design Guidance & 61 Quality Rules)..." -ForegroundColor Gray
-        npx impeccable install --scope=project
+        npx --yes impeccable install --yes --scope=project
         Write-Host "   [+] Impeccable installed." -ForegroundColor Green
     } catch {
         Write-Host "   [!] Impeccable install skipped. You can run 'npx impeccable install' manually." -ForegroundColor DarkYellow
     }
+
+    $env:CI = $null
 } else {
     Write-Host "   [!] Node.js / npx not found on PATH. Install Node.js 18+ to enable skills CLI." -ForegroundColor Red
 }
@@ -121,28 +146,29 @@ if ($agyCmd) {
 Write-Host "`n[5/5] Finalizing Git Baseline..." -ForegroundColor Yellow
 if (Test-Path ".git") {
     try {
-        git add .
-        git commit -m "feat: initial project setup with agent skills and tools" --quiet
+        git add . 2>$null
+        git commit -m "feat: initial project setup with agent skills and tools" --quiet 2>$null
         Write-Host "   [+] Staged and committed initial stack to Git." -ForegroundColor Green
     } catch {
-        Write-Host "   [i] Note: Nothing to commit or git error: $_" -ForegroundColor Gray
+        Write-Host "   [i] Note: Nothing to commit or git baseline already set." -ForegroundColor Gray
     }
 }
 
 Write-Host ""
 Write-Host "==========================================================" -ForegroundColor Green
-Write-Host "   [OK] Vibe Coding Stack Ready!                          " -ForegroundColor Green
+Write-Host "   🎉 Vibe Coding Stack Ready!                            " -ForegroundColor Green
 Write-Host "==========================================================" -ForegroundColor Green
-Write-Host "Pre-configured workflows in your new project:"
-Write-Host " - /graphify .        -> Build & inspect codebase knowledge graph"
-Write-Host " - /spec              -> Write PRD and clarify goals before coding"
-Write-Host " - /plan              -> Decompose spec into atomic, verifiable tasks"
-Write-Host " - /build auto        -> Autonomous vertical-slice TDD implementation"
-Write-Host " - /impeccable init   -> Gather product truth into PRODUCT.md"
-Write-Host " - /impeccable craft  -> Shape-then-build interactive visual flow"
-Write-Host " - /impeccable audit  -> 61 zero-token deterministic design checks"
-Write-Host " - /animate           -> Build fluid motion with decelerating curves"
-Write-Host " - /review            -> 5-axis Senior Staff quality review"
-Write-Host " - /ponytail-review   -> Strip code bloat, enforce native 1-liners"
-Write-Host " - /ship              -> Commit atomic changes and prepare release"
+Write-Host ""
+Write-Host "👉 WHAT TO DO NEXT (No terminal commands needed!):" -ForegroundColor Cyan
+Write-Host "   1. Open your AI coding assistant (Antigravity / Cursor / Claude)."
+Write-Host "   2. In the AI chat, simply describe what you want to build:"
+Write-Host "      Example: 'I want to build a modern personal portfolio.'" -ForegroundColor Yellow
+Write-Host ""
+Write-Host "   The AI will automatically handle planning, design, and"
+Write-Host "   code quality in the background."
+Write-Host ""
+Write-Host "💡 Optional shortcuts for advanced users:" -ForegroundColor DarkGray
+Write-Host "   /spec   -> Write a PRD before writing code" -ForegroundColor DarkGray
+Write-Host "   /plan   -> Break tasks into small verifiable steps" -ForegroundColor DarkGray
+Write-Host "   /review -> Senior Staff quality review" -ForegroundColor DarkGray
 Write-Host "==========================================================" -ForegroundColor Green
