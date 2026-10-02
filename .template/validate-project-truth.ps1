@@ -27,4 +27,17 @@ if ($obsolete) {
     throw 'Found obsolete project-truth authority or path reference.'
 }
 
+$adoptGuidanceFiles = @(
+    'AGENTS.md'
+    'CLAUDE.md'
+    'GEMINI.md'
+    '.agents/rules/vibe-stack.md'
+    '.cursor/rules/graphify.mdc'
+)
+foreach ($file in $adoptGuidanceFiles) {
+    if (-not (Select-String -LiteralPath $file -Pattern 'adopt' -Quiet)) {
+        throw "Missing adopt guidance: $file"
+    }
+}
+
 Write-Output 'Project-truth structure is valid.'

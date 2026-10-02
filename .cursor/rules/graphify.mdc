@@ -21,3 +21,10 @@ This template uses a lightweight WWG-inspired project-truth layer:
 - Treat `.project-truth/workspace/` as agent context, not a competing source of truth.
 - Treat `.project-truth/governance/` and reports as drift/verification guidance and evidence.
 - Synchronize durable discoveries back into canonical truth before closeout.
+
+## Existing application adoption
+
+When the user says `adopt` or `/adopt`, follow the evidence-first `app/`
+baseline workflow in `AGENTS.md`: inspect relevant files, record a dated report
+in `.project-truth/reports/`, and promote only confirmed findings to canonical
+truth. Never modify application source or invent unknown product facts.

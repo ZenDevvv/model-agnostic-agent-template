@@ -47,6 +47,29 @@ This template uses a lightweight Wiki / Workspace / Governance model inspired by
 
 Before meaningful work, read `.project-truth/truth/project-truth-summary.md`, `.project-truth/truth/terminology.md`, `.project-truth/workspace/current-task.md`, and `.project-truth/governance/drift-guard.md`. Load the full truth and relevant architecture or decision files when the task changes accepted behavior. Code discoveries must be synchronized back into canonical truth before closeout.
 
+### Adopt an Existing `app/` Baseline (`adopt` or `/adopt`)
+
+When the user says `adopt` or `/adopt`, establish project truth from the
+initial application files already present in `app/`. This is an evidence-first
+agent workflow, not a source migration or an instruction to generate code.
+
+1. Confirm that `app/` exists and contains ingestible files. If it does not,
+   report the condition and ask for direction; do not claim adoption completed.
+2. Inventory and read relevant text source, configuration, and documentation
+   files under `app/`. Respect `.gitignore`, do not read generated, binary,
+   credential, dependency, or build-output files, and do not modify application
+   source as part of adoption.
+3. Write a dated report in `.project-truth/reports/` containing the file
+   inventory, evidence-backed observations, excluded paths, and explicit
+   unknowns or review questions.
+4. Promote only confirmed findings to the relevant files in
+   `.project-truth/truth/` (for example architecture, requirements, design,
+   terminology, and the summary). Preserve `TBD` for unknown product facts;
+   reports and inferred conclusions never override canonical truth silently.
+5. Update workspace context and current-task closeout, validate project-truth
+   structure, and refresh Graphify when adoption introduces or restructures
+   modules.
+
 ---
 
 ## 3. Engineering Execution Lifecycle (6-Phase SDLC)

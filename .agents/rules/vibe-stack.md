@@ -6,3 +6,5 @@ Canonical truth: `.project-truth/truth/`
 Active context: `.project-truth/workspace/`
 Governance and evidence: `.project-truth/governance/` and `.project-truth/reports/`
 Derived architecture: `graphify-out/`
+
+`adopt` or `/adopt` means ingest the existing `app/` baseline through the evidence-first workflow in `AGENTS.md`.

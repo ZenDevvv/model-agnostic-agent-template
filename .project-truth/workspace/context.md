@@ -17,3 +17,4 @@ Load the full `project-truth.md`, requirements, architecture, design, decisions,
 - Project-specific facts: not yet defined.
 - Graphify status: derived architectural context; refresh after structural changes.
 - Canonical truth root: `.project-truth/truth/`.
+- To establish a baseline from existing application files, use the `adopt` workflow in `AGENTS.md`.

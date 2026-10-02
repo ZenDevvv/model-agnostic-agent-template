@@ -2,28 +2,28 @@
 
 ## Objective
 
-- Make the setup scripts' initial Git commit explicit and opt-in.
+- Add the portable `adopt` command/keyword so agents can ingest initial `app/` files into project truth after setup.
 
 ## Scope
 
-- `.template/setup.ps1`, `.template/setup.sh`, and setup documentation.
+- Agent operating contract, supported agent adapters, project-truth documentation, and setup workflow documentation.
 
 ## Constraints
 
-- Preserve canonical project truth.
-- Keep changes minimal and verifiable.
-- Do not stage or commit workspace files unless the user explicitly requests it.
+- Preserve application source during adoption.
+- Record evidence before accepting project truth.
+- Keep unknown or ambiguous findings review-first and explicit.
 
 ## Acceptance criteria
 
-- Default setup reports Git status without staging or committing files.
-- Matching PowerShell and Bash flags enable the existing initial-commit behavior.
-- Setup documentation explains the behavior.
+- `adopt` and `/adopt` are discoverable and consistently defined for supported agents.
+- Adoption inventories relevant `app/` files, writes a report, and promotes only confirmed findings to canonical truth.
+- Empty or missing `app/` is reported without a false success.
 
-`spec.md` and `plan.md` at the repository root are task-scoped working documents. Update canonical truth only when the task establishes accepted durable behavior.
+`spec.md` and `plan.md` at the repository root are task-scoped working documents. Update canonical truth when the task establishes accepted durable behavior.
 
 ## Closeout
 
-- Truth updated: no
-- Tests or verification: PowerShell parse, all four dry-run profiles, explicit-commit flag acceptance, Git-reset conflict guard, project-truth validation, and diff whitespace checks passed. Bash syntax could not run locally because no WSL distribution is installed.
+- Truth updated: yes
+- Tests or verification: PowerShell project-truth validation (including the new adoption-guidance guard), PowerShell setup-script parsing, adoption guidance coverage, and `git diff --check` passed. Bash validation and syntax checking could not run because no Bash/WSL distribution is available in this environment.
 - Recommendations: none recorded

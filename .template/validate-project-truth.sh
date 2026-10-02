@@ -25,4 +25,16 @@ if rg -n --glob '*.md' --glob '*.mdc' --glob '*.ps1' --glob '*.sh' \
   exit 1
 fi
 
+adopt_guidance_files=(
+  AGENTS.md
+  CLAUDE.md
+  GEMINI.md
+  .agents/rules/vibe-stack.md
+  .cursor/rules/graphify.mdc
+)
+
+for file in "${adopt_guidance_files[@]}"; do
+  rg -qi 'adopt' "$file" || { echo "Missing adopt guidance: $file" >&2; exit 1; }
+done
+
 echo 'Project-truth structure is valid.'

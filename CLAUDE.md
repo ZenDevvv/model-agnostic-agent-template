@@ -4,6 +4,7 @@ This repository's canonical operating contract is [AGENTS.md](AGENTS.md). Read i
 
 Claude-specific entry points:
 
+- `/adopt` (or `adopt`) - ingest the existing `app/` baseline using the evidence-first workflow in `AGENTS.md`.
 - `/graphify` — inspect or refresh derived architectural context.
 - `/spec` and `/plan` — create task-scoped specification and implementation plan.
 - `/build`, `/test`, `/review`, `/code-simplify`, `/ship` — execute and verify the lifecycle defined in `AGENTS.md`.

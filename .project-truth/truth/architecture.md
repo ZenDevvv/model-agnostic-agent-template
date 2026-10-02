@@ -4,11 +4,11 @@ Describe the current implemented architecture and its important boundaries here.
 
 ## System overview
 
-- TBD
+- `app/` contains application source. `.project-truth/reports/` holds derived adoption evidence, while `.project-truth/truth/` holds only accepted findings promoted from that evidence.
 
 ## Modules and responsibilities
 
-- TBD
+- The `adopt` agent workflow inventories the initial `app/` baseline and routes confirmed findings to the relevant project-truth documents.
 
 ## Data and integrations
 
