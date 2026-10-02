@@ -400,15 +400,16 @@ When combined, these tools form an end-to-end powerhouse pipeline where cost, sp
 
 ## 📚 Quick Reference & Dedicated Guides
 
+> Provider counts, free-tier totals, benchmarks, and token-reduction figures are time-sensitive snapshots from the linked upstream projects. Verify current values before using them for purchasing or architecture decisions.
+
 | Tool | Category | Dedicated Local Guide | Repository Link | Primary Strength |
 |---|---|---|---|---|
-| **Ponytail** | AI Skill / Rule | [ponytail.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/ponytail.md) | [DietrichGebert/ponytail](https://github.com/dietrichgebert/ponytail) | Slashing generated code bloat; enforcing native platform features & YAGNI |
-| **OmniRoute** | Proxy & Gateway *(Optional)* | [omniroute.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/omniroute.md) | [diegosouzapw/OmniRoute](https://github.com/diegosouzapw/OmniRoute) | Multi-provider routing, 150+ free tiers, automatic rate-limit failover |
-| **Graphify** | Knowledge Graph | [graphify.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/graphify.md) | [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) | Deep codebase understanding, AST analysis, multimodal architecture maps |
-| **Agent Skills** | Engineering Workflow | [agent-skills.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/agent-skills.md) | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | 25 production-grade SDLC skills (Spec, Plan, TDD, Review, Ship) by Addy Osmani |
-| **Emil's Skills** | Motion & Polish | [emil-skills.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/emil-skills.md) | [emilkowalski/skills](https://github.com/emilkowalski/skills) | Cubic-bezier curves, Apple fluid motion, mobile-native bug fixes |
-| **Impeccable** | Design Quality & System | [impeccable.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/impeccable.md) | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | Product truth (PRODUCT.md), 24 UX commands, 61 zero-token quality rules |
-| **Taste Skill** | Aesthetic Art Direction | [taste-skill.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/taste-skill.md) | [leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill) | 1–10 design dials (variance/motion/density), anti-slop visual personas |
-| **img2threejs** | Procedural 3D *(Optional)* | [img2threejs.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/img2threejs.md) | [img2threejs/img2threejs](https://github.com/img2threejs/img2threejs) | Reconstruction-by-code: 2D image to pure TypeScript/Three.js 3D models |
-
+| **Ponytail** | AI Skill / Rule | [ponytail.md](ponytail.md) | [DietrichGebert/ponytail](https://github.com/dietrichgebert/ponytail) | Slashing generated code bloat; enforcing native platform features & YAGNI |
+| **OmniRoute** | Proxy & Gateway *(Optional)* | [omniroute.md](omniroute.md) | [diegosouzapw/OmniRoute](https://github.com/diegosouzapw/OmniRoute) | Multi-provider routing, 150+ free tiers, automatic rate-limit failover |
+| **Graphify** | Knowledge Graph | [graphify.md](graphify.md) | [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) | Deep codebase understanding, AST analysis, multimodal architecture maps |
+| **Agent Skills** | Engineering Workflow | [agent-skills.md](agent-skills.md) | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | 25 production-grade SDLC skills (Spec, Plan, TDD, Review, Ship) by Addy Osmani |
+| **Emil's Skills** | Motion & Polish | [emil-skills.md](emil-skills.md) | [emilkowalski/skills](https://github.com/emilkowalski/skills) | Cubic-bezier curves, Apple fluid motion, mobile-native bug fixes |
+| **Impeccable** | Design Quality & System | [impeccable.md](impeccable.md) | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | Product truth (PRODUCT.md), 24 UX commands, 61 zero-token quality rules |
+| **Taste Skill** | Aesthetic Art Direction | [taste-skill.md](taste-skill.md) | [leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill) | 1–10 design dials (variance/motion/density), anti-slop visual personas |
+| **img2threejs** | Procedural 3D *(Optional)* | [img2threejs.md](img2threejs.md) | [img2threejs/img2threejs](https://github.com/img2threejs/img2threejs) | Reconstruction-by-code: 2D image to pure TypeScript/Three.js 3D models |
 

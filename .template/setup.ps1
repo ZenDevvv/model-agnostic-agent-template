@@ -12,6 +12,18 @@ param(
     [switch]$DryRun
 )
 
+function Invoke-RequiredCommand {
+    param(
+        [Parameter(Mandatory)] [string]$FilePath,
+        [Parameter(Mandatory)] [string[]]$ArgumentList
+    )
+
+    & $FilePath @ArgumentList
+    if ($LASTEXITCODE -ne 0) {
+        throw "Command failed with exit code $LASTEXITCODE`: $FilePath $($ArgumentList -join ' ')"
+    }
+}
+
 # Ensure script executes in the project root
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 if ((Split-Path $ScriptDir -Leaf) -eq ".template") {
@@ -42,7 +54,7 @@ if (-not $PSBoundParameters.ContainsKey("DesignProfile") -and -not $env:CI) {
 $installImpeccable = $true
 $installTaste = $DesignProfile -in @("motion", "frontend")
 $installEmil = $DesignProfile -eq "motion"
-if ($DesignProfile -eq "custom") {
+if ($DesignProfile -eq "custom" -and -not $DryRun) {
     $installImpeccable = (Read-Host "Install Impeccable quality checks? [Y/n]") -notmatch "^(n|no)$"
     $installTaste = (Read-Host "Install Taste Skill visual direction? [y/N]") -match "^(y|yes)$"
     $installEmil = (Read-Host "Install Emil motion/mobile skills? [y/N]") -match "^(y|yes)$"
@@ -71,8 +83,8 @@ if ($pythonCmd) {
 
     try {
         Write-Host "   Installing/Updating graphifyy via pip..." -ForegroundColor Gray
-        python -m pip install --quiet --upgrade graphifyy
-        python -m graphify install
+        Invoke-RequiredCommand python @('-m', 'pip', 'install', '--quiet', '--upgrade', 'graphifyy')
+        Invoke-RequiredCommand python @('-m', 'graphify', 'install')
         Write-Host "   [+] Graphify installed successfully." -ForegroundColor Green
     } catch {
         Write-Host "   [!] Could not automatically install graphifyy via pip. Run 'pip install graphifyy' manually." -ForegroundColor DarkYellow
@@ -117,11 +129,11 @@ if ($originUrl -like "*model-agnostic-agent-template*" -and -not $KeepOrigin) {
 
 if (Test-Path ".git") {
     try {
-        python -m graphify hook install 2>$null
+        Invoke-RequiredCommand python @('-m', 'graphify', 'hook', 'install')
         Write-Host "   [+] Installed Graphify post-commit hook." -ForegroundColor Green
     } catch {
         try {
-            graphify hook install 2>$null
+            Invoke-RequiredCommand graphify @('hook', 'install')
             Write-Host "   [+] Installed Graphify post-commit hook." -ForegroundColor Green
         } catch {
             Write-Host "   [i] Graphify hook will be available after restarting terminal." -ForegroundColor Gray
@@ -138,7 +150,7 @@ if ($npxCmd) {
 
     try {
         Write-Host "   Installing Addy Osmani's Agent Skills..." -ForegroundColor Gray
-        npx --yes skills add addyosmani/agent-skills --all
+        Invoke-RequiredCommand npx @('--yes', 'skills', 'add', 'addyosmani/agent-skills', '--all')
         Write-Host "   [+] Agent Skills installed." -ForegroundColor Green
     } catch {
         Write-Host "   [!] Agent Skills install skipped or failed." -ForegroundColor DarkYellow
@@ -147,7 +159,7 @@ if ($npxCmd) {
     try {
         if ($installTaste) {
             Write-Host "   Installing Taste Skill (visual direction)..." -ForegroundColor Gray
-            npx --yes skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend"
+            Invoke-RequiredCommand npx @('--yes', 'skills', 'add', 'https://github.com/Leonxlnx/taste-skill', '--skill', 'design-taste-frontend')
             Write-Host "   [+] Taste Skill installed." -ForegroundColor Green
         } else {
             Write-Host "   [i] Taste Skill skipped by profile." -ForegroundColor DarkGray
@@ -159,7 +171,7 @@ if ($npxCmd) {
     try {
         if ($installEmil) {
             Write-Host "   Installing Emil Kowalski's Motion & Mobile Native Skills..." -ForegroundColor Gray
-            npx --yes skills@latest add emilkowalski/skills --skill "animate" --skill "mobile-native" --skill "review-animations"
+            Invoke-RequiredCommand npx @('--yes', 'skills@latest', 'add', 'emilkowalski/skills', '--skill', 'animate', '--skill', 'mobile-native', '--skill', 'review-animations')
             Write-Host "   [+] Emil Kowalski Skills installed." -ForegroundColor Green
         } else {
             Write-Host "   [i] Emil motion/mobile skills skipped by profile." -ForegroundColor DarkGray
@@ -171,7 +183,7 @@ if ($npxCmd) {
     try {
         if ($installImpeccable) {
             Write-Host "   Installing Impeccable (design guidance & quality rules)..." -ForegroundColor Gray
-            npx --yes impeccable install --yes --scope=project
+            Invoke-RequiredCommand npx @('--yes', 'impeccable', 'install', '--yes', '--scope=project')
             Write-Host "   [+] Impeccable installed." -ForegroundColor Green
         } else {
             Write-Host "   [i] Impeccable skipped by profile." -ForegroundColor DarkGray
@@ -190,17 +202,21 @@ Write-Host "`n[4/5] Checking Agent Environments..." -ForegroundColor Yellow
 $agyCmd = Get-Command agy -ErrorAction SilentlyContinue
 if ($agyCmd) {
     Write-Host "   Found Antigravity CLI (agy)! Installing plugins..." -ForegroundColor Green
-    agy plugin install https://github.com/DietrichGebert/ponytail --silent
-    agy plugin install https://github.com/addyosmani/agent-skills.git --silent
-    Write-Host "   [+] Antigravity CLI plugins installed." -ForegroundColor Green
+    try {
+        Invoke-RequiredCommand agy @('plugin', 'install', 'https://github.com/DietrichGebert/ponytail', '--silent')
+        Invoke-RequiredCommand agy @('plugin', 'install', 'https://github.com/addyosmani/agent-skills.git', '--silent')
+    } catch {
+        Write-Host "   [!] Antigravity plugin installation failed: $_" -ForegroundColor DarkYellow
+    }
+    Write-Host "   Antigravity plugin phase complete; review any warnings above." -ForegroundColor Gray
 }
 
 # 5. Finalize Git Repository
 Write-Host "`n[5/5] Finalizing Git Baseline..." -ForegroundColor Yellow
 if (Test-Path ".git") {
     try {
-        git add . 2>$null
-        git commit -m "feat: initial project setup with agent skills and tools" --quiet 2>$null
+        Invoke-RequiredCommand git @('add', '.')
+        Invoke-RequiredCommand git @('commit', '-m', 'feat: initial project setup with agent skills and tools', '--quiet')
         Write-Host "   [+] Staged and committed initial stack to Git." -ForegroundColor Green
     } catch {
         Write-Host "   [i] Note: Nothing to commit or git baseline already set." -ForegroundColor Gray

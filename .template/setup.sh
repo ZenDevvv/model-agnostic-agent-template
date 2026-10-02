@@ -6,14 +6,24 @@ set -e
 
 DESIGN_PROFILE="motion"
 DRY_RUN=false
-if [[ "${1:-}" == "--design-profile" ]]; then
-    DESIGN_PROFILE="${2:-motion}"
-    shift 2
-elif [[ "${1:-}" == "--dry-run" ]]; then
-    DRY_RUN=true
-    shift
-fi
-if [[ "${1:-}" == "--dry-run" ]]; then DRY_RUN=true; fi
+KEEP_ORIGIN=false
+while (($#)); do
+    case "$1" in
+        --design-profile)
+            [[ -n "${2:-}" ]] || { echo "Missing value for --design-profile" >&2; exit 2; }
+            DESIGN_PROFILE="$2"
+            shift 2
+            ;;
+        --dry-run) DRY_RUN=true; shift ;;
+        --keep-origin) KEEP_ORIGIN=true; shift ;;
+        *) echo "Unknown option: $1" >&2; exit 2 ;;
+    esac
+done
+
+case "$DESIGN_PROFILE" in
+    motion|frontend|minimal|custom) ;;
+    *) echo "Invalid design profile: $DESIGN_PROFILE" >&2; exit 2 ;;
+esac
 
 if [[ -t 0 && -z "${CI:-}" && "$DRY_RUN" == false && "$DESIGN_PROFILE" == "motion" ]]; then
     echo "Design profile (default: motion):"
@@ -66,9 +76,15 @@ echo -e "\033[1;36m==========================================================\03
 echo -e "\033[1;33m1️⃣ Checking Python & Graphify...\033[0m"
 if command -v python3 &>/dev/null; then
     echo "Found Python: $(python3 --version)"
-    pip3 install --quiet --upgrade graphifyy || pip install --quiet --upgrade graphifyy
-    python3 -m graphify install || graphify install || true
-    echo -e "\033[1;32m   ✅ Graphify installed.\033[0m"
+    if pip3 install --quiet --upgrade graphifyy || pip install --quiet --upgrade graphifyy; then
+        if python3 -m graphify install 2>/dev/null || graphify install 2>/dev/null; then
+            echo "   Graphify installed."
+        else
+            echo "   Graphify package installed, but skill registration failed." >&2
+        fi
+    else
+        echo "   Graphify installation failed; continuing without it." >&2
+    fi
 else
     echo -e "\033[1;31m   ⚠️ python3 not found. Please install Python 3.10+.\033[0m"
 fi
@@ -77,7 +93,7 @@ fi
 echo -e "\n\033[1;33m2️⃣ Checking Git Repository...\033[0m"
 origin_url=$(git remote get-url origin 2>/dev/null || echo "")
 
-if [[ "$origin_url" == *"model-agnostic-agent-template"* && "$1" != "--keep-origin" ]]; then
+if [[ "$origin_url" == *"model-agnostic-agent-template"* && "$KEEP_ORIGIN" == false ]]; then
     echo -e "\033[1;33m   🔄 Detected clone of template repository ($origin_url).\033[0m"
     echo -e "\033[1;36m   Disconnecting from template and initializing fresh Git repository for your project...\033[0m"
     rm -rf .git
@@ -90,8 +106,11 @@ elif [ ! -d ".git" ]; then
 fi
 
 if [ -d ".git" ]; then
-    python3 -m graphify hook install 2>/dev/null || graphify hook install 2>/dev/null || true
-    echo -e "\033[1;32m   ✅ Installed Graphify post-commit hook.\033[0m"
+    if python3 -m graphify hook install 2>/dev/null || graphify hook install 2>/dev/null; then
+        echo "   Installed Graphify post-commit hook."
+    else
+        echo "   Graphify hook installation failed; continuing." >&2
+    fi
 fi
 
 # 3. Engineering & Design Skills
@@ -100,25 +119,35 @@ if command -v npx &>/dev/null; then
     export CI=true
 
     echo "   Installing Addy Osmani's Agent Skills..."
-    npx --yes skills add addyosmani/agent-skills --all || true
+    if npx --yes skills add addyosmani/agent-skills --all; then
+        echo "   Agent Skills installed."
+    else
+        echo "   Agent Skills installation failed; continuing." >&2
+    fi
 
     if [[ "$INSTALL_TASTE" == true ]]; then
         echo "   Installing Taste Skill (visual direction)..."
-        npx --yes skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend" || true
+        if ! npx --yes skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend"; then
+            echo "   Taste Skill installation failed; continuing." >&2
+        fi
     fi
 
     if [[ "$INSTALL_EMIL" == true ]]; then
         echo "   Installing Emil Kowalski's Motion & Mobile Native Skills..."
-        npx --yes skills@latest add emilkowalski/skills --skill "animate" --skill "mobile-native" --skill "review-animations" || true
+        if ! npx --yes skills@latest add emilkowalski/skills --skill "animate" --skill "mobile-native" --skill "review-animations"; then
+            echo "   Emil Skills installation failed; continuing." >&2
+        fi
     fi
 
     if [[ "$INSTALL_IMPECCABLE" == true ]]; then
         echo "   Installing Impeccable (design guidance & quality rules)..."
-        npx --yes impeccable install --yes --scope=project || true
+        if ! npx --yes impeccable install --yes --scope=project; then
+            echo "   Impeccable installation failed; continuing." >&2
+        fi
     fi
 
     unset CI
-    echo -e "\033[1;32m   ✅ Engineering & Design Skills installed.\033[0m"
+    echo "   Skill installation phase complete; review any warnings above."
 else
     echo -e "\033[1;31m   ⚠️ npx not found. Please install Node.js 18+.\033[0m"
 fi
@@ -127,16 +156,18 @@ fi
 echo -e "\n\033[1;33m4️⃣ Checking Agent Environments...\033[0m"
 if command -v agy &>/dev/null; then
     echo "   Found Antigravity CLI (agy)! Installing plugins..."
-    agy plugin install https://github.com/DietrichGebert/ponytail --silent || true
-    agy plugin install https://github.com/addyosmani/agent-skills.git --silent || true
+    agy plugin install https://github.com/DietrichGebert/ponytail --silent || echo "   Ponytail plugin installation failed; continuing." >&2
+    agy plugin install https://github.com/addyosmani/agent-skills.git --silent || echo "   Agent Skills plugin installation failed; continuing." >&2
 fi
 
 # 5. Finalize Git Repository
 echo -e "\n\033[1;33m5️⃣ Finalizing Git Baseline...\033[0m"
 if [ -d ".git" ]; then
     git add .
-    git commit -m "feat: initial project setup with agent skills and tools" --quiet || true
-    echo -e "\033[1;32m   ✅ Initial stack and agent skills committed to Git.\033[0m"
+    if ! git commit -m "feat: initial project setup with agent skills and tools" --quiet; then
+        echo "   Nothing committed; check Git identity or repository state." >&2
+    fi
+    echo "   Git finalization phase complete; review any warnings above."
 fi
 
 echo -e "\n\033[1;32m==========================================================\033[0m"

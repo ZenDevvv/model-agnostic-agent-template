@@ -4,7 +4,7 @@
 > Built on 4 Core Pillars: **Graphify**, **Agents**, **Skills**, and **Ponytail** — supplemented by a dedicated **Frontend Design & Motion Suite** (Impeccable, Taste Skill, Emil Kowalski). 100% model-agnostic.
 
 [![Template Repository](https://img.shields.io/badge/GitHub-Template_Repository-blue?logo=github)](https://github.com/ZenDevvv/model-agnostic-agent-template)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../LICENSE)
 [![Model Agnostic](https://img.shields.io/badge/Models-100%25_Agnostic-success)](README.md#-100-model-agnostic-free-budget--frontier-models)
 
 ---
@@ -105,7 +105,7 @@ You do **not** need to memorize slash commands. You can simply chat in natural l
 
 ### 🤖 Flow 2: The Agent Flow (What the AGENT Executes Behind the Scenes)
 
-When you ask the AI to build or change something, the agent is governed by [AGENTS.md](AGENTS.md) and [.cursor/rules/](.cursor/rules/) to execute this disciplined 6-phase engineering lifecycle:
+When you ask the AI to build or change something, the agent is governed by [AGENTS.md](../AGENTS.md) and [.cursor/rules/](../.cursor/rules/) to execute this disciplined 6-phase engineering lifecycle:
 
 #### 1. Architectural Orientation (`graphify`)
 * Before touching multi-module code, the agent inspects `graphify-out/GRAPH_REPORT.md` or queries the AST graph (e.g. `graphify query "What connects module X to service Y?"`).
