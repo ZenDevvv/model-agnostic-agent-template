@@ -164,7 +164,7 @@ if ($npxCmd) {
     try {
         if ($installTaste) {
             Write-Host "   Installing Taste Skill (visual direction)..." -ForegroundColor Gray
-            Invoke-RequiredCommand npx @('--yes', 'skills', 'add', 'https://github.com/Leonxlnx/taste-skill', '--skill', 'design-taste-frontend')
+            Invoke-RequiredCommand npx @('--yes', 'skills', 'add', 'https://github.com/Leonxlnx/taste-skill', '--skill', 'design-taste-frontend', '--agent', '*', '--yes')
             Write-Host "   [+] Taste Skill installed." -ForegroundColor Green
         } else {
             Write-Host "   [i] Taste Skill skipped by profile." -ForegroundColor DarkGray
@@ -176,7 +176,7 @@ if ($npxCmd) {
     try {
         if ($installEmil) {
             Write-Host "   Installing Emil Kowalski's Motion & Mobile Native Skills..." -ForegroundColor Gray
-            Invoke-RequiredCommand npx @('--yes', 'skills@latest', 'add', 'emilkowalski/skills', '--skill', 'animate', '--skill', 'mobile-native', '--skill', 'review-animations')
+            Invoke-RequiredCommand npx @('--yes', 'skills@latest', 'add', 'emilkowalski/skills', '--skill', 'animate', '--skill', 'mobile-native', '--skill', 'review-animations', '--agent', '*', '--yes')
             Write-Host "   [+] Emil Kowalski Skills installed." -ForegroundColor Green
         } else {
             Write-Host "   [i] Emil motion/mobile skills skipped by profile." -ForegroundColor DarkGray

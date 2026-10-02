@@ -135,14 +135,14 @@ if command -v npx &>/dev/null; then
 
     if [[ "$INSTALL_TASTE" == true ]]; then
         echo "   Installing Taste Skill (visual direction)..."
-        if ! npx --yes skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend"; then
+        if ! npx --yes skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend" --agent '*' --yes; then
             echo "   Taste Skill installation failed; continuing." >&2
         fi
     fi
 
     if [[ "$INSTALL_EMIL" == true ]]; then
         echo "   Installing Emil Kowalski's Motion & Mobile Native Skills..."
-        if ! npx --yes skills@latest add emilkowalski/skills --skill "animate" --skill "mobile-native" --skill "review-animations"; then
+        if ! npx --yes skills@latest add emilkowalski/skills --skill "animate" --skill "mobile-native" --skill "review-animations" --agent '*' --yes; then
             echo "   Emil Skills installation failed; continuing." >&2
         fi
     fi
