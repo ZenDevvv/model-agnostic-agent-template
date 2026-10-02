@@ -4,6 +4,11 @@
   Installs & Configures: Ponytail, Graphify, and Addy Osmani's Agent Skills.
 #>
 
+[CmdletBinding()]
+param(
+    [switch]$KeepOrigin
+)
+
 Write-Host "==========================================================" -ForegroundColor Cyan
 Write-Host "   🚀 Initializing Vibe Coding Supercharged Template      " -ForegroundColor Cyan
 Write-Host "      Stack: Ponytail + Graphify + Agent Skills           " -ForegroundColor Cyan
@@ -27,8 +32,37 @@ if ($pythonCmd) {
     Write-Host "   ⚠️ Python not found on PATH. Install Python 3.10+ to enable Graphify." -ForegroundColor Red
 }
 
-# 2. Check Git & Install Graphify Post-Commit Hook
+# 2. Check Git, Detach from Template, & Install Graphify Post-Commit Hook
 Write-Host "`n2️⃣ Checking Git Repository..." -ForegroundColor Yellow
+$originUrl = (git remote get-url origin 2>$null)
+
+if ($originUrl -like "*model-agnostic-agent-template*" -and -not $KeepOrigin) {
+    Write-Host "   🔄 Detected clone of template repository ($originUrl)." -ForegroundColor Yellow
+    Write-Host "   Disconnecting from template and initializing fresh Git repository for your project..." -ForegroundColor Cyan
+    try {
+        if (Test-Path ".git") {
+            Get-ChildItem -Path ".git" -Recurse -Force | ForEach-Object { $_.Attributes = 'Normal' }
+            Remove-Item -Path ".git" -Recurse -Force
+        }
+        git init -b main | Out-Null
+        git add .
+        git commit -m "feat: initial project setup from vibe coding template" --quiet
+        Write-Host "   ✅ Initialized fresh, detached Git repository (main)." -ForegroundColor Green
+    } catch {
+        Write-Host "   ⚠️ Could not reset .git automatically: $_" -ForegroundColor DarkYellow
+    }
+} elseif (-not (Test-Path ".git")) {
+    Write-Host "   Initializing fresh Git repository for your project..." -ForegroundColor Cyan
+    try {
+        git init -b main | Out-Null
+        git add .
+        git commit -m "feat: initial project setup from vibe coding template" --quiet
+        Write-Host "   ✅ Initialized fresh Git repository (main)." -ForegroundColor Green
+    } catch {
+        Write-Host "   ℹ️ Note: Install Git to enable version control." -ForegroundColor Gray
+    }
+}
+
 if (Test-Path ".git") {
     try {
         graphify hook install
@@ -36,8 +70,6 @@ if (Test-Path ".git") {
     } catch {
         Write-Host "   ℹ️ Note: Run 'graphify hook install' once graphify is on your PATH." -ForegroundColor Gray
     }
-} else {
-    Write-Host "   ℹ️ Not a git repo yet. Run 'git init' and 'graphify hook install' when ready." -ForegroundColor Gray
 }
 
 # 3. Setup Agent Skills

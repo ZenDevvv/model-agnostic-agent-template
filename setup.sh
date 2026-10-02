@@ -20,13 +20,29 @@ else
     echo -e "\033[1;31m   ⚠️ python3 not found. Please install Python 3.10+.\033[0m"
 fi
 
-# 2. Check Git & Commit Hook
+# 2. Check Git, Detach from Template, & Commit Hook
 echo -e "\n\033[1;33m2️⃣ Checking Git Repository...\033[0m"
+origin_url=$(git remote get-url origin 2>/dev/null || echo "")
+
+if [[ "$origin_url" == *"model-agnostic-agent-template"* && "$1" != "--keep-origin" ]]; then
+    echo -e "\033[1;33m   🔄 Detected clone of template repository ($origin_url).\033[0m"
+    echo -e "\033[1;36m   Disconnecting from template and initializing fresh Git repository for your project...\033[0m"
+    rm -rf .git
+    (git init -b main >/dev/null 2>&1 || git init >/dev/null 2>&1)
+    git add .
+    git commit -m "feat: initial project setup from vibe coding template" --quiet || true
+    echo -e "\033[1;32m   ✅ Initialized fresh, detached Git repository (main).\033[0m"
+elif [ ! -d ".git" ]; then
+    echo -e "\033[1;36m   Initializing fresh Git repository for your project...\033[0m"
+    (git init -b main >/dev/null 2>&1 || git init >/dev/null 2>&1)
+    git add .
+    git commit -m "feat: initial project setup from vibe coding template" --quiet || true
+    echo -e "\033[1;32m   ✅ Initialized fresh Git repository (main).\033[0m"
+fi
+
 if [ -d ".git" ]; then
     graphify hook install || true
     echo -e "\033[1;32m   ✅ Installed Graphify post-commit hook.\033[0m"
-else
-    echo "   ℹ️ Not a git repo yet. Run 'git init' and 'graphify hook install' when ready."
 fi
 
 # 3. Engineering & Design Skills
