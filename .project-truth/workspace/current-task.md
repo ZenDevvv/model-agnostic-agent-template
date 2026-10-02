@@ -2,28 +2,25 @@
 
 ## Objective
 
-- Add the portable `adopt` command/keyword so agents can ingest initial `app/` files into project truth after setup.
+- Make `app/` the explicit required location for generated application source code.
 
 ## Scope
 
-- Agent operating contract, supported agent adapters, project-truth documentation, and setup workflow documentation.
+- Agent operating contract and canonical project-truth documentation.
 
 ## Constraints
 
-- Preserve application source during adoption.
-- Record evidence before accepting project truth.
-- Keep unknown or ambiguous findings review-first and explicit.
+- Keep repository tooling, agent instructions, project-truth records, and task-scoped documents in their established top-level locations.
 
 ## Acceptance criteria
 
-- `adopt` and `/adopt` are discoverable and consistently defined for supported agents.
-- Adoption inventories relevant `app/` files, writes a report, and promotes only confirmed findings to canonical truth.
-- Empty or missing `app/` is reported without a false success.
+- `AGENTS.md` unambiguously requires generated application source code to be written under `app/`.
+- Canonical project-truth documentation preserves the same repository boundary.
 
 `spec.md` and `plan.md` at the repository root are task-scoped working documents. Update canonical truth when the task establishes accepted durable behavior.
 
 ## Closeout
 
 - Truth updated: yes
-- Tests or verification: PowerShell project-truth validation (including the new adoption-guidance guard), PowerShell setup-script parsing, adoption guidance coverage, and `git diff --check` passed. Bash validation and syntax checking could not run because no Bash/WSL distribution is available in this environment.
-- Recommendations: none recorded
+- Tests or verification: `git diff --check` passed; the new application-location requirement was confirmed in `AGENTS.md` and canonical project-truth files.
+- Recommendations: none recorded.

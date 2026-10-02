@@ -208,7 +208,8 @@ Invoke installed skills from `.agents/skills` / `agent/skills` based on the oper
 
 ## 6. Output & Code Generation Standards
 
-1. **Full Output Enforcement:** Never output placeholders, truncation comments (e.g. `// rest of implementation goes here`), or stubbed implementations. Produce complete, runnable code or precise targeted diffs.
-2. **Context Integrity:** Respect existing project architecture, directory structures, and naming conventions.
-3. **Fail-Fast Error Handling:** Catch and handle expected errors explicitly. Never swallow exceptions or leave empty catch blocks.
-4. **Accessibility First:** Ensure all interactive elements have semantic HTML tags, accessible labels (`aria-label`), keyboard navigation, and visible focus rings.
+1. **Application Location:** Write all generated application source code under `app/`. Keep repository tooling, agent instructions, project-truth records, and task-scoped documents in their established top-level locations.
+2. **Full Output Enforcement:** Never output placeholders, truncation comments (e.g. `// rest of implementation goes here`), or stubbed implementations. Produce complete, runnable code or precise targeted diffs.
+3. **Context Integrity:** Respect existing project architecture, directory structures, and naming conventions.
+4. **Fail-Fast Error Handling:** Catch and handle expected errors explicitly. Never swallow exceptions or leave empty catch blocks.
+5. **Accessibility First:** Ensure all interactive elements have semantic HTML tags, accessible labels (`aria-label`), keyboard navigation, and visible focus rings.

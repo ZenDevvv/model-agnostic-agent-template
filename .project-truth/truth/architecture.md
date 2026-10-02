@@ -4,7 +4,7 @@ Describe the current implemented architecture and its important boundaries here.
 
 ## System overview
 
-- `app/` contains application source. `.project-truth/reports/` holds derived adoption evidence, while `.project-truth/truth/` holds only accepted findings promoted from that evidence.
+- `app/` contains all generated application source code. `.project-truth/reports/` holds derived adoption evidence, while `.project-truth/truth/` holds only accepted findings promoted from that evidence.
 
 ## Modules and responsibilities
 

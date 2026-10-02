@@ -4,6 +4,7 @@ Record accepted requirements here. Each requirement should be testable or have a
 
 ## Functional requirements
 
+- All generated application source code must be written under `app/`; repository tooling and project-governance files remain in their established top-level locations.
 - Supported agents must recognize `adopt` and `/adopt` as a request to ingest the current `app/` baseline into the project-truth workflow.
 - Adoption must inventory and read relevant text source, configuration, and documentation files under `app/`, preserve the source files, write an evidence report, and synchronize only confirmed findings into the applicable canonical truth files.
 - If `app/` is missing or contains no ingestible files, the agent must report that condition and ask for direction rather than claiming adoption completed.
