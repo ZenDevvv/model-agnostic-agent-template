@@ -56,7 +56,7 @@ cd my-new-project
   bash .template/setup.sh
   ```
 
-This automatically:
+By default, setup installs the Motion design profile: Impeccable, Taste Skill, and Emil Kowalski motion/mobile skills. Choose frontend, minimal, or custom interactively or pass DesignProfile on PowerShell or design-profile on Bash.
 - Installs and verifies **Graphify** via Python `pip`.
 - Installs the post-commit git hook to keep the knowledge graph continuously up to date.
 - Installs Addy Osmani's **Agent Skills** into your local agent environment.

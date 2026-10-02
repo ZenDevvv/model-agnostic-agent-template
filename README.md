@@ -28,7 +28,7 @@ cd my-new-project
   bash .template/setup.sh
   ```
 
-This automatically configures your Git repository, installs Graphify, sets up post-commit hooks, and installs production engineering and design skills.
+This configures your Git repository, installs Graphify, sets up post-commit hooks, and installs the Motion design profile by default. The setup script also supports frontend, minimal, and custom design profiles.
 
 ### 3. Start Building!
 Open your AI coding assistant (Antigravity, Cursor, Claude Code, or Codex) and start chatting:

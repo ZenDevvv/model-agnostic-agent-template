@@ -4,6 +4,12 @@
 
 set -e
 
+DESIGN_PROFILE="motion"
+INSTALL_IMPECCABLE=true
+INSTALL_TASTE=false
+INSTALL_EMIL=false
+if [[ "$DESIGN_PROFILE" == "motion" || "$DESIGN_PROFILE" == "frontend" ]]; then INSTALL_TASTE=true; fi
+if [[ "${1:-}" == "--design-profile" ]]; then DESIGN_PROFILE="${2:-motion}"; fi
 # Ensure script executes in the project root
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 if [[ "$(basename "$SCRIPT_DIR")" == ".template" ]]; then
@@ -55,14 +61,20 @@ if command -v npx &>/dev/null; then
     echo "   Installing Addy Osmani's Agent Skills..."
     npx --yes skills add addyosmani/agent-skills --all || true
 
-    echo "   Installing Taste Skill (Anti-Slop Modern Frontend Engine)..."
-    npx --yes skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend" || true
+    if [[ "$INSTALL_TASTE" == true ]]; then
+        echo "   Installing Taste Skill (visual direction)..."
+        npx --yes skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend" || true
+    fi
 
-    echo "   Installing Emil Kowalski's Motion & Mobile Native Skills..."
-    npx --yes skills@latest add emilkowalski/skills --skill "animate" --skill "mobile-native" --skill "review-animations" || true
+    if [[ "$INSTALL_EMIL" == true ]]; then
+        echo "   Installing Emil Kowalski's Motion & Mobile Native Skills..."
+        npx --yes skills@latest add emilkowalski/skills --skill "animate" --skill "mobile-native" --skill "review-animations" || true
+    fi
 
-    echo "   Installing Impeccable (Design Guidance & 61 Quality Rules)..."
-    npx --yes impeccable install --yes --scope=project || true
+    if [[ "$INSTALL_IMPECCABLE" == true ]]; then
+        echo "   Installing Impeccable (design guidance & quality rules)..."
+        npx --yes impeccable install --yes --scope=project || true
+    fi
 
     unset CI
     echo -e "\033[1;32m   ✅ Engineering & Design Skills installed.\033[0m"

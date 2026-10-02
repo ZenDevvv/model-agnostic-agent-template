@@ -21,7 +21,7 @@ This project operates on the **Universal Model-Agnostic Vibe Coding Stack**. Reg
   - `/review`: 5-axis review (Correctness, Security, Performance, Maintainability, Simplicity).
   - `/ship`: Commit atomic changes with clear messages.
 
-## 4. Frontend Design & Motion Craft (Impeccable, Taste & Emil)
+## 4. Frontend Design & Motion Craft (profile-dependent; Motion is the default)
 - **Eliminate AI Slop:** Never default to generic Inter fonts, harsh 1px borders, or cards inside cards.
 - **Tune Dials:** Calibrate `DESIGN_VARIANCE` (asymmetry), `MOTION_INTENSITY` (GSAP/physics), and `VISUAL_DENSITY`.
 - **Motion Physics:** Decelerate on enter with `ease-out` / `cubic-bezier(0.16, 1, 0.3, 1)`. Animate only `transform` and `opacity`.
