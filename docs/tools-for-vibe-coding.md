@@ -345,7 +345,34 @@ Breaks agents out of bland corporate templates by introducing **tunable 1–10 a
 
 ---
 
-## ⚡ The Complete 5-Layer Synergy
+## 8. 🧊 img2threejs *(Optional 3D & Creative Extension)*
+
+*“Reconstruction-by-Code — Zero 3D Asset Bloat.”*
+
+* **Repository:** [https://github.com/img2threejs/img2threejs](https://github.com/img2threejs/img2threejs)
+* **Author:** Nick (`iamnick` / `img2threejs`)
+* **Primary Role:** Procedural 3D Reconstruction from 2D Images directly into TypeScript/Three.js Code
+* **Note:** *Marked as an optional creative extension — ideal for luxury landing page hero artifacts, interactive badges, 3D product previews, and tactile UI elements.*
+
+### 📌 Overview
+Unlike standard photogrammetry or neural mesh extractors that output 20MB–100MB binary `.glb` or `.obj` files, **img2threejs reconstructs objects purely as TypeScript and Three.js code** (`THREE.Group`).
+
+Using an 8-stage quality-gated pipeline (`blockout → structural → form → material → surface → lighting → interaction → optimization`), an AI agent analyses a single 2D image and builds the 3D model using primitives, procedural shaders, and generated geometry.
+
+### 🎯 Key Capabilities
+* **Zero Asset Bloat:** No external 3D files to host or download; the entire scene lives directly in your git-diffable code.
+* **Deterministic & Token-Efficient:** Comes with `forge/`, a zero-dependency Python 3.10+ standard library test harness that validates bounding boxes, geometries, and materials without wasting LLM tokens.
+* **Interactive & Animation-Ready:** Generates hierarchical pivots, sockets, raycast colliders, and `userData.tick` update hooks for fluid hover drift, pointer tilt, and click animations.
+
+* **Quick Install:**
+  ```bash
+  # Clone into your agent skills directory
+  git clone https://github.com/img2threejs/img2threejs.git ~/.claude/skills/img2threejs
+  ```
+
+---
+
+## ⚡ The Complete Synergy
 
 When combined, these tools form an end-to-end powerhouse pipeline where cost, speed, engineering discipline, and visual beauty are harmonized:
 
@@ -357,7 +384,7 @@ When combined, these tools form an end-to-end powerhouse pipeline where cost, sp
 │ 2. Workflow (SDLC)│ Agent Skills: PRDs (/spec), Atomic Tasks (/plan), TDD (/build auto)│
 │ 3. Architecture   │ Graphify: 71.5x Token Compression & Multimodal AST Knowledge Graph │
 │ 4. Design & Motion│ Impeccable (Product Truth & Audit) + Taste Skill (Anti-Slop Dials) │
-│                   │ + Emil Kowalski (Fluid Animation Curves & Mobile-Native Polish)    │
+│                   │ + Emil Kowalski (Fluid Curves) + img2threejs (3D Procedural Hero)  │
 │ 5. Restraint      │ Ponytail: The 7-Rung YAGNI Ladder & Native 1-Liners                │
 └───────────────────┴────────────────────────────────────────────────────────────────────┘
 ```
@@ -365,8 +392,9 @@ When combined, these tools form an end-to-end powerhouse pipeline where cost, sp
 1. **OmniRoute** supplies the uninterrupted inference and token compression.
 2. **Agent Skills** sets the disciplined engineering lifecycle (`/spec` → `/plan` → `/build` → `/test`).
 3. **Graphify** grounds the agent with structural awareness so it understands cross-module relationships.
-4. **Impeccable, Taste Skill & Emil's Skills** elevate the frontend into a stunning, production-ready interface with intentional typography, calibrated dials, and physics-based motion.
-5. **Ponytail** prevents the agent from introducing bloat, ensuring that all functionality and styling are implemented with lean, native, standard-compliant code.
+4. **Impeccable, Taste Skill & Emil's Skills** elevate the 2D frontend into a stunning, production-ready interface with intentional typography, calibrated dials, and physics-based motion.
+5. **img2threejs** adds optional, code-only 3D interactive hero artifacts with zero asset bloat.
+6. **Ponytail** prevents the agent from introducing bloat, ensuring that all functionality and styling are implemented with lean, native, standard-compliant code.
 
 ---
 
@@ -381,4 +409,6 @@ When combined, these tools form an end-to-end powerhouse pipeline where cost, sp
 | **Emil's Skills** | Motion & Polish | [emil-skills.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/emil-skills.md) | [emilkowalski/skills](https://github.com/emilkowalski/skills) | Cubic-bezier curves, Apple fluid motion, mobile-native bug fixes |
 | **Impeccable** | Design Quality & System | [impeccable.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/impeccable.md) | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | Product truth (PRODUCT.md), 24 UX commands, 61 zero-token quality rules |
 | **Taste Skill** | Aesthetic Art Direction | [taste-skill.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/taste-skill.md) | [leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill) | 1–10 design dials (variance/motion/density), anti-slop visual personas |
+| **img2threejs** | Procedural 3D *(Optional)* | [img2threejs.md](file:///c:/Users/Zen/Desktop/MY%20PROJECTS/VB-skills/img2threejs.md) | [img2threejs/img2threejs](https://github.com/img2threejs/img2threejs) | Reconstruction-by-code: 2D image to pure TypeScript/Three.js 3D models |
+
 

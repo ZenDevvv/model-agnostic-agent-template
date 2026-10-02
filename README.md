@@ -30,6 +30,10 @@ To complement the core engineering pillars, this template comes pre-configured w
 | **[Taste Skill](https://github.com/leonxlnx/taste-skill)** | Leon Lin (`leonxlnx`) | **Anti-Slop Art Direction:** 3 tunable 1–10 dials (`DESIGN_VARIANCE`, `MOTION_INTENSITY`, `VISUAL_DENSITY`) and distinct visual genres (Luxury Soft, Minimalist Editorial, Brutalist) that stop models from producing bland cookie-cutter templates. |
 | **[Emil Kowalski's Skills](https://github.com/emilkowalski/skills)** | Emil Kowalski (Linear / Vercel) | **Motion Physics & Mobile Polish:** Mathematically correct cubic-bezier deceleration curves, Apple WWDC fluid physics, and mobile-native touch fixes (`100dvh`, tap delay elimination, safe-area padding). |
 
+### 🧊 Optional Creative & 3D Extensions
+For projects requiring interactive 3D hero elements, product showcases, or spatial UI without asset bloat:
+* **[img2threejs](https://github.com/img2threejs/img2threejs)** — **Reconstruction-by-Code:** Reconstructs 2D reference images directly into pure TypeScript / Three.js code (`THREE.Group`) using an 8-stage quality-gated pipeline. Zero `.glb`/`.obj` file bloat; 100% diffable procedural code with pivots and interaction hooks. See [`docs/img2threejs.md`](docs/img2threejs.md).
+
 ---
 
 ## 🚀 Quick Start (Starting a New Project)
@@ -140,6 +144,7 @@ my-new-project/
 │   ├── emil-skills.md           # Emil Kowalski motion & micro-interaction guide
 │   ├── impeccable.md            # Impeccable 24 commands & 61 quality rules
 │   ├── taste-skill.md           # Taste Skill anti-slop dials & visual personas
+│   ├── img2threejs.md           # (Optional) Procedural 3D UI reconstruction
 │   └── omniroute.md             # (Optional) Multi-provider gateway guide
 ├── AGENTS.md                    # Universal agent directives (Cursor, Codex, OpenCode, etc.)
 ├── CLAUDE.md                    # Claude Code directives and slash commands

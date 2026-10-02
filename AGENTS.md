@@ -6,7 +6,7 @@ This repository is built on 4 Core Pillars:
 3. **Skills** (Addy Osmani's 25 Production SDLC Workflow Skills)
 4. **Ponytail** (Anti-Overengineering & Simplicity Ladder)
 
-Supported by a dedicated **Frontend Design & Motion Suite**: Impeccable, Taste Skill, and Emil Kowalski's Skills.
+Supported by a dedicated **Frontend Design & Motion Suite** (Impeccable, Taste Skill, Emil Kowalski) and optional creative extensions (**img2threejs** for procedural 3D UI).
 
 All AI agents (Claude Code, Cursor, Codex, Antigravity CLI, Copilot, Cline, etc.) must adhere to these directives on every task.
 
@@ -120,6 +120,12 @@ Tune the three 1–10 dials to guide layout creativity and density:
   - Prevent sticky hover states on touch devices with `@media (hover: hover)`.
   - Add safe-area padding: `padding-bottom: env(safe-area-inset-bottom)`.
   - Ensure font-size on text inputs is at least `16px` to prevent iOS auto-zoom on focus.
+
+### 4. Optional 3D UI & Hero Elements (img2threejs)
+- When crafting interactive 3D hero elements, spatial badges, or product showcases, use `img2threejs` to reconstruct 2D reference images as pure TypeScript / Three.js code (`THREE.Group`).
+- **Zero Asset Bloat:** Do not check in heavy `.glb`/`.obj` 3D binaries when procedural Three.js primitives and shaders suffice.
+- **Hierarchy & Interaction:** Always expose clean pivots, sockets, raycast colliders, and `userData.tick` hooks for idle drift and mouse-tilt interaction.
+- See [`docs/img2threejs.md`](docs/img2threejs.md) for the 8-stage pipeline.
 
 ---
 
