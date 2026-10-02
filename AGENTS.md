@@ -1,12 +1,12 @@
 # Global Agent Directives & Vibe Coding Workflow
 
-This repository uses a combined **Vibe Coding Stack** integrating:
-1. **Ponytail** (Anti-Overengineering & Simplicity Ladder)
-2. **Graphify** (Multimodal Knowledge Graph & Structural Grounding)
-3. **Agent Skills** (Production-Grade SDLC Gates & TDD Discipline)
-4. **Impeccable** (Durable Product Truth, 24 Commands & Zero-Token Quality Checks)
-5. **Taste Skill** (Anti-Slop Art Direction & Adjustable Aesthetic Dials)
-6. **Emil Kowalski's Skills** (Motion Physics, Easing Curves & Mobile-Native Polish)
+This repository is built on 4 Core Pillars:
+1. **Graphify** (Multimodal Knowledge Graph & Structural Grounding)
+2. **Agents** (Specialist Reviewer, QA, Security, and WebPerf Personas)
+3. **Skills** (Addy Osmani's 25 Production SDLC Workflow Skills)
+4. **Ponytail** (Anti-Overengineering & Simplicity Ladder)
+
+Supported by a dedicated **Frontend Design & Motion Suite**: Impeccable, Taste Skill, and Emil Kowalski's Skills.
 
 All AI agents (Claude Code, Cursor, Codex, Antigravity CLI, Copilot, Cline, etc.) must adhere to these directives on every task.
 
