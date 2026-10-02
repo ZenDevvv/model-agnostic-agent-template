@@ -64,62 +64,68 @@ This automatically:
 
 ---
 
-## 💻 The Vibe Coding Workflow
+## 💻 The Vibe Coding Workflow: Two Distinct Flows
 
-Whenever you develop features or solve problems in this repo, use this battle-tested lifecycle:
+To keep vibe coding fast, predictable, and bloat-free, this template cleanly separates responsibilities between **You** (the Product Director) and the **AI Agent** (the Senior Engineering Staff):
+
+* **The User Flow (You):** You define intent, approve plans, and test the app. You can speak in plain English—no commands to memorize.
+* **The Agent Flow (The AI):** The agent automatically checks architecture, drafts PRDs, plans atomic tasks, and writes test-driven code following the Ponytail simplicity ladder.
 
 ```
-    STEP 1             STEP 2             STEP 3             STEP 4             STEP 5
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│ Architectural│    │   Define    │    │    Plan     │    │ Autonomous  │    │  Review &   │
-│ Orientation │ ─▶ │ Requirements│ ─▶ │ Tasks       │ ─▶ │ TDD Build   │ ─▶ │ Simplify    │
-│  /graphify  │    │    /spec    │    │    /plan    │    │ /build auto │    │ /review     │
-└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
-                                                                                   │
-                                                          Ponytail Ladder ─────────┘
-                                                          (Strip bloat & keep 1-liners)
-```
-
-### Step 1: Ground the Agent in the Architecture
-```text
-/graphify .
-```
-Builds an interactive knowledge graph in `graphify-out/`. Before touching multi-module code, ask:
-```text
-/graphify query "What connects module X to service Y?"
+       YOU (The Director)                            THE AGENT (The Builder)
+┌───────────────────────────────┐               ┌───────────────────────────────┐
+│ 1. Describe your idea/goal    │ ────────────▶ │ A. Drafts /spec & checks AST  │
+│ 2. Review & approve plan      │ ◀──────────── │ B. Breaks down into /plan     │
+│ 3. Give the green light       │ ────────────▶ │ C. /build auto (TDD + YAGNI)  │
+│ 4. Test & request tweaks      │ ◀──────────── │ D. /review & auto-commits     │
+└───────────────────────────────┘               └───────────────────────────────┘
 ```
 
-### Step 2: Define Requirements Before Writing Code
-```text
-/spec
-```
-The agent drafts a lightweight Product Requirement Document (PRD) with constraints and acceptance criteria. If your prompt is ambiguous, ask the agent to `interview-me` to clarify requirements one question at a time.
+---
 
-### Step 3: Decompose into Atomic Tasks
-```text
-/plan
-```
-Decomposes the spec into small, verifiable implementation steps with strict dependency order.
+### 👤 Flow 1: The User Flow (What YOU Actually Do)
 
-### Step 4: Autonomous Build with Test-Driven Verification
-```text
-/build auto
-```
-The agent implements tasks one slice at a time with strict Red-Green-Refactor TDD. **Ponytail's 7-rung ladder** ensures the agent uses native browser/stdlib features instead of inventing unnecessary dependencies or writing 200 lines of boilerplate.
+You do **not** need to memorize slash commands. You can simply chat in natural language, or use slash shortcuts if you prefer:
 
-### Step 5: Staff Review & Code Simplification
-```text
-/review
-/code-simplify
-/ponytail-review
-```
-Performs a 5-axis senior staff review, applies Chesterton's Fence to eliminate accidental complexity, and checks for dead code.
+| Stage | What You Say (Plain English) | Optional Shortcut | What Happens |
+|---|---|---|---|
+| **1. Define** | *"I want to build a [feature/app]. Ask me questions or write a spec before coding."* | `/spec` | Prevents the agent from rushing into hallucinated code. |
+| **2. Approve** | *"Looks good, break this down into small tasks."* | `/plan` | Gives you a checklist of small, verifiable steps. |
+| **3. Build** | *"Go ahead and build the tasks autonomously."* | `/build auto` | Agent writes tests and implements tasks slice-by-slice. |
+| **4. Verify** | *"Review this code for bloat, security, and bugs."* | `/review` | Senior staff audit + code simplification. |
 
-### Step 6: Ship
-```text
-/ship
-```
-Commits the changes with atomic, descriptive git commit messages.
+> **💡 Day 0 (Brand New Project) vs. Day 2+ (Growing Codebase):**
+> * **On Day 0 (Empty Project):** You have no code yet. **Skip architectural checks entirely!** Go straight to **Stage 1 (Define)** to describe what you want built.
+> * **On Day 2+ (Existing Project):** When you ask for modifications or new features, the agent will automatically check the codebase knowledge graph first so it never breaks other files.
+
+---
+
+### 🤖 Flow 2: The Agent Flow (What the AGENT Executes Behind the Scenes)
+
+When you ask the AI to build or change something, the agent is governed by [AGENTS.md](AGENTS.md) and [.cursor/rules/](.cursor/rules/) to execute this disciplined 6-phase engineering lifecycle:
+
+#### 1. Architectural Orientation (`graphify`)
+* Before touching multi-module code, the agent inspects `graphify-out/GRAPH_REPORT.md` or queries the AST graph (e.g. `graphify query "What connects module X to service Y?"`).
+* It identifies "God nodes" and cross-module dependencies to calculate the blast radius before modifying anything.
+
+#### 2. Requirements Definition (`/spec`)
+* The agent drafts a lightweight Product Requirements Document (`spec.md`) with explicit constraints, API contracts, and acceptance criteria.
+* If your prompt was ambiguous, it triggers `interview-me` to clarify requirements one question at a time.
+
+#### 3. Task Breakdown (`/plan`)
+* Decomposes the spec into small, verifiable implementation steps (~100 lines each) with strict dependency ordering in `plan.md`.
+
+#### 4. Autonomous TDD Implementation (`/build` / `/build auto`)
+* Implements tasks one vertical slice at a time using strict Red-Green-Refactor Test-Driven Development (TDD).
+* **Enforces the Ponytail 7-Rung Ladder:** Refuses to write unnecessary boilerplate. Stops at the earliest rung: YAGNI ➔ Codebase reuse ➔ Stdlib ➔ Native platform feature ➔ 1-liner ➔ Minimum viable code.
+
+#### 5. Senior Staff Review (`/review` & `/code-simplify`)
+* Evaluates code across 5 axes: Correctness, Security, Performance, Maintainability, and Simplicity.
+* Applies Chesterton's Fence to strip accidental complexity and eliminate dead code without breaking tests.
+
+#### 6. Shipping & Continuous Graph Sync (`/ship`)
+* Commits the changes with atomic, descriptive messages.
+* The installed post-commit hook automatically updates `graphify-out/` so the knowledge graph is always in sync for your next prompt.
 
 ---
 
